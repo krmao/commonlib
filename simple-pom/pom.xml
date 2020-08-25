@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.simple</groupId>
-    <artifactId>simple-pom</artifactId>
+    <artifactId>simple-parent</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
     <name>Staffjoy MicroServices Training Project</name>
