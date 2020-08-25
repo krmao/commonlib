@@ -72,13 +72,11 @@
                 <version>1.7.17</version>
             </dependency>
 
-<!--            &lt;!&ndash; Common &ndash;&gt;-->
-<!--            <dependency>-->
-<!--                <groupId>xyz.staffjoy</groupId>-->
-<!--                <artifactId>common-lib</artifactId>-->
-<!--                <version>1.0.1</version>-->
-<!--            </dependency>-->
-
+	    <dependency>
+                <groupId>com.simple</groupId>
+                <artifactId>common-lib</artifactId>
+                <version>1.0.1</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
  
