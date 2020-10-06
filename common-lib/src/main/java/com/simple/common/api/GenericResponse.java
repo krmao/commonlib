@@ -27,5 +27,11 @@ public class GenericResponse extends BaseResponse {
     public GenericResponse(Object value){
         this.setDataObject(value);
     }
+    public static GenericResponse buildWithObject(Object value){
+       return  new GenericResponse(value);
+    }
+    public static GenericResponse build(){
+        return  new GenericResponse();
+    }
 
 }
