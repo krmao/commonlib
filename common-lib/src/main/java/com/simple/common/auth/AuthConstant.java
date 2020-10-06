@@ -2,9 +2,9 @@ package com.simple.common.auth;
 
 public class AuthConstant {
 
-    public static final String COOKIE_NAME = "staffjoy-faraday";
+    public static final String COOKIE_NAME = "Authentication";
     // header set for internal user id
-    public static final String CURRENT_USER_HEADER = "faraday-current-user-id";
+    public static final String CURRENT_USER_HEADER = "current-user-id";
     // AUTHORIZATION_HEADER is the http request header
     // key used for accessing the internal authorization.
     public static final String AUTHORIZATION_HEADER = "Authorization";

@@ -32,10 +32,9 @@ public class GlobalExceptionTranslator {
         logger.warn("Missing Request Parameter", e);
         String message = String.format("Missing Request Parameter: %s", e.getParameterName());
         return BaseResponse
-                .builder()
+                .build()
                 .code(ResultCode.PARAM_MISS)
-                .message(message)
-                .build();
+                .message(message);
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
@@ -43,10 +42,10 @@ public class GlobalExceptionTranslator {
         logger.warn("Method Argument Type Mismatch", e);
         String message = String.format("Method Argument Type Mismatch: %s", e.getName());
         return BaseResponse
-                .builder()
+                .build()
                 .code(ResultCode.PARAM_TYPE_ERROR)
-                .message(message)
-                .build();
+                .message(message);
+
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -56,10 +55,10 @@ public class GlobalExceptionTranslator {
         FieldError error = result.getFieldError();
         String message = String.format("%s:%s", error.getField(), error.getDefaultMessage());
         return BaseResponse
-                .builder()
+                .build()
                 .code(ResultCode.PARAM_VALID_ERROR)
-                .message(message)
-                .build();
+                .message(message);
+
     }
 
     @ExceptionHandler(BindException.class)
@@ -68,10 +67,10 @@ public class GlobalExceptionTranslator {
         FieldError error = e.getFieldError();
         String message = String.format("%s:%s", error.getField(), error.getDefaultMessage());
         return BaseResponse
-                .builder()
+                .build()
                 .code(ResultCode.PARAM_BIND_ERROR)
-                .message(message)
-                .build();
+                .message(message);
+
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
@@ -82,79 +81,78 @@ public class GlobalExceptionTranslator {
         String path = ((PathImpl) violation.getPropertyPath()).getLeafNode().getName();
         String message = String.format("%s:%s", path, violation.getMessage());
         return BaseResponse
-                .builder()
+                .build()
                 .code(ResultCode.PARAM_VALID_ERROR)
-                .message(message)
-                .build();
+                .message(message);
     }
 
     @ExceptionHandler(NoHandlerFoundException.class)
     public BaseResponse handleError(NoHandlerFoundException e) {
         logger.error("404 Not Found", e);
         return BaseResponse
-                .builder()
+                .build()
                 .code(ResultCode.NOT_FOUND)
-                .message(e.getMessage())
-                .build();
+                .message(e.getMessage());
+
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public BaseResponse handleError(HttpMessageNotReadableException e) {
         logger.error("Message Not Readable", e);
         return BaseResponse
-                .builder()
+                .build()
                 .code(ResultCode.MSG_NOT_READABLE)
-                .message(e.getMessage())
-                .build();
+                .message(e.getMessage());
+
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public BaseResponse handleError(HttpRequestMethodNotSupportedException e) {
         logger.error("Request Method Not Supported", e);
         return BaseResponse
-                .builder()
+                .build()
                 .code(ResultCode.METHOD_NOT_SUPPORTED)
-                .message(e.getMessage())
-                .build();
+                .message(e.getMessage());
+                //.build();
     }
 
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     public BaseResponse handleError(HttpMediaTypeNotSupportedException e) {
         logger.error("Media Type Not Supported", e);
         return BaseResponse
-                .builder()
+                .build()
                 .code(ResultCode.MEDIA_TYPE_NOT_SUPPORTED)
-                .message(e.getMessage())
-                .build();
+                .message(e.getMessage());
+                //.build();
     }
 
     @ExceptionHandler(ServiceException.class)
     public BaseResponse handleError(ServiceException e) {
         logger.error("Service Exception", e);
         return BaseResponse
-                .builder()
+                .build()
                 .code(e.getResultCode())
-                .message(e.getMessage())
-                .build();
+                .message(e.getMessage());
+                //.build();
     }
 
     @ExceptionHandler(PermissionDeniedException.class)
     public BaseResponse handleError(PermissionDeniedException e) {
         logger.error("Permission Denied", e);
         return BaseResponse
-                .builder()
+                .build()
                 .code(e.getResultCode())
-                .message(e.getMessage())
-                .build();
+                .message(e.getMessage());
+                //.build();
     }
 
     @ExceptionHandler(Throwable.class)
     public BaseResponse handleError(Throwable e) {
         logger.error("Internal Server Error", e);
         return BaseResponse
-                .builder()
+                .build()
                 .code(ResultCode.INTERNAL_SERVER_ERROR)
-                .message(e.getMessage())
-                .build();
+                .message(e.getMessage());
+
     }
 }

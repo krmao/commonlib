@@ -58,7 +58,7 @@ public class EnvConfig {
 
         envConfig = EnvConfig.builder().name(EnvConstant.ENV_PROD)
                 .debug(false)
-                .externalApex("staffjoy.com")
+                .externalApex(".e-healthcare.net")
                 .internalApex(EnvConstant.ENV_PROD)
                 .scheme("https")
                 .build();

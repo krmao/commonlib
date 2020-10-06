@@ -1,5 +1,6 @@
 package com.simple.common.api;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -39,7 +40,12 @@ public enum ResultCode {
 
     PARAM_VALID_ERROR(HttpServletResponse.SC_BAD_REQUEST, "Parameter Validation Error");
 
-    final int code;
+    final int status;
 
     final String msg;
+
+    @JsonValue
+    public int getCode() {
+        return status;
+    }
 }
