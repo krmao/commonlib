@@ -19,7 +19,10 @@ public class EnvConfig {
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     private static Map<String, EnvConfig> map;
-
+    private static EnvConfig current;
+    public static EnvConfig env(){
+        return EnvConfig.current;
+    }
     static {
         map = new HashMap<String, EnvConfig>();
         EnvConfig envConfig = EnvConfig.builder().name(EnvConstant.ENV_DEV)
@@ -70,6 +73,7 @@ public class EnvConfig {
         if (envConfig == null) {
             envConfig = map.get(EnvConstant.ENV_DEV);
         }
+        EnvConfig.current =envConfig;
         return envConfig;
     }
 }

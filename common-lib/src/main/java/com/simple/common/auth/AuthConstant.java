@@ -2,12 +2,13 @@ package com.simple.common.auth;
 
 public class AuthConstant {
 
-    public static final String COOKIE_NAME = "Authentication";
+    public static final String COOKIE_NAME = "token";
     // header set for internal user id
     public static final String CURRENT_USER_HEADER = "current-user-id";
     // AUTHORIZATION_HEADER is the http request header
     // key used for accessing the internal authorization.
     public static final String AUTHORIZATION_HEADER = "Authorization";
+    public static final String AUTHENTICATION_HEADER = "token";
     // AUTHORIZATION_ANONYMOUS_WEB is set as the Authorization header to denote that
     // a request is being made bu an unauthenticated web user
     public static final String AUTHORIZATION_ANONYMOUS_WEB = "faraday-anonymous";

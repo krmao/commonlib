@@ -2,6 +2,7 @@ package com.simple.common.config;
 
 import com.github.structlog4j.StructLog4J;
 import com.github.structlog4j.json.JsonFormatter;
+import com.simple.common.auth.AuthenticationInterceptor;
 import com.simple.common.auth.AuthorizeInterceptor;
 import com.simple.common.auth.FeignRequestHeaderInterceptor;
 import feign.RequestInterceptor;
@@ -21,8 +22,8 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 @Configuration
-@EnableConfigurationProperties(StaffjoyProps.class)
-public class StaffjoyConfig implements WebMvcConfigurer {
+@EnableConfigurationProperties(SimpleProps.class)
+public class SimpleConfig implements WebMvcConfigurer {
 
     @Value("${spring.profiles.active:NA}")
     private String activeProfile;
@@ -31,7 +32,7 @@ public class StaffjoyConfig implements WebMvcConfigurer {
     private String appName;
 
     @Autowired
-    StaffjoyProps staffjoyProps;
+    SimpleProps simpleProps;
 
     @Bean
     public ModelMapper modelMapper() {
@@ -46,9 +47,9 @@ public class StaffjoyConfig implements WebMvcConfigurer {
     @Bean
     public SentryClient sentryClient() {
 
-        SentryClient sentryClient = Sentry.init(staffjoyProps.getSentryDsn());
+        SentryClient sentryClient = Sentry.init(simpleProps.getSentryDsn());
         sentryClient.setEnvironment(activeProfile);
-        sentryClient.setRelease(staffjoyProps.getDeployEnv());
+        sentryClient.setRelease(simpleProps.getDeployEnv());
         sentryClient.addTag("service", appName);
 
         return sentryClient;
@@ -57,6 +58,7 @@ public class StaffjoyConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthorizeInterceptor());
+        registry.addInterceptor(new AuthenticationInterceptor());
     }
 
     @Bean

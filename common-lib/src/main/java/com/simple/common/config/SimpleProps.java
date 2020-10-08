@@ -8,12 +8,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import javax.validation.constraints.NotBlank;
 
-@ConfigurationProperties(prefix="staffjoy.common")
+@ConfigurationProperties(prefix="simple.common")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StaffjoyProps {
+public class SimpleProps {
     @NotBlank
     private String sentryDsn;
     @NotBlank

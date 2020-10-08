@@ -45,6 +45,12 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.61</version>
         </dependency>
+        <!-- NOSQL begin -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+        </dependency>
+        <!-- NOSQL end -->
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>

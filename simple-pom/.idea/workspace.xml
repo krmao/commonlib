@@ -2,28 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="65a001ba-271e-4203-9e58-22b3b84dc2ff" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/common/api/BaseRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/common/api/GenericRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/common/api/GenericResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/common/api/Header.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/common/api/ResponseStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/common/controller/BaseController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/common/error/ServiceHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/core/encrypt/DesPcTokenUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/core/encrypt/DesTokenUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/core/util/DateUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/core/util/JsonUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../common-lib/common-lib.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../common-lib/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../common-lib/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/common/api/BaseResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/common/api/BaseResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/common/api/ResultCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/common/api/ResultCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/common/auth/AuthConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/common/auth/AuthConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/common/auth/Sessions.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/common/auth/Sessions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/common/env/EnvConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/common/env/EnvConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/common/error/GlobalExceptionTranslator.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/common/error/GlobalExceptionTranslator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/common/error/ServiceHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../common-lib/src/main/java/com/simple/common/error/ServiceHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../common-lib/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../common-lib/target/maven-archiver/pom.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

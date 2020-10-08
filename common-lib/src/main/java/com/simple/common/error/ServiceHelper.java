@@ -60,33 +60,51 @@ public class ServiceHelper {
             String requestData = StreamUtils.copyToString(inputStream,
                     Charset.forName("UTF-8"));
             String messages = errorMessages(requestURL, requestData, msg, ex);
-            logger.error(messages);
-            SentryClientFactory.sentryClient().sendException(ex);
+            if (EnvConfig.env().isDebug()) {
+                logger.error(messages);
+                ex.printStackTrace();
+            } else {
+                SentryClientFactory.sentryClient().sendException(ex);
+            }
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            if (EnvConfig.env().isDebug()) {
+                ex.printStackTrace();
+            }
         }
         return BaseResponse.build().code(ResultCode.FAILURE).message(msg);
     }
+
     public static BaseResponse handleControllerException(HttpServletRequest request, Exception ex, String msg) {
         try {
-            String requestURL =request.getRequestURI();
+            String requestURL = request.getRequestURI();
             InputStream inputStream = request.getInputStream();
             String requestData = StreamUtils.copyToString(inputStream,
                     Charset.forName("UTF-8"));
             String messages = errorMessages(requestURL, requestData, msg, ex);
-            logger.error(messages);
-            SentryClientFactory.sentryClient().sendException(ex);
 
+            if (EnvConfig.env().isDebug()) {
+                logger.error(messages);
+                ex.printStackTrace();
+            } else {
+                SentryClientFactory.sentryClient().sendException(ex);
+            }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            if (EnvConfig.env().isDebug()) {
+                ex.printStackTrace();
+            }
         }
         return BaseResponse.build().code(ResultCode.FAILURE).message(msg);
     }
 
     public static void handleServiceException(Exception ex, String msg) {
-        logger.error(msg);
-        SentryClientFactory.sentryClient().sendException(ex);
+        if (EnvConfig.env().isDebug()) {
+            logger.error(msg);
+            ex.printStackTrace();
+        } else {
+            SentryClientFactory.sentryClient().sendException(ex);
+        }
+
 
     }
 
