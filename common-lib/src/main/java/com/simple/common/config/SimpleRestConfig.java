@@ -9,6 +9,6 @@ import com.simple.common.error.GlobalExceptionTranslator;
  * Use this common config for Rest API
  */
 @Configuration
-@Import(value = {SimpleConfig.class, SentryClientAspect.class, GlobalExceptionTranslator.class})
+@Import(value = {SimpleBaseConfig.class, SentryClientAspect.class, GlobalExceptionTranslator.class})
 public class SimpleRestConfig {
 }

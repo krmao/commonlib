@@ -8,6 +8,6 @@ import com.simple.common.aop.SentryClientAspect;
  * Use this common config for Web App
  */
 @Configuration
-@Import(value = {SimpleConfig.class, SentryClientAspect.class,})
+@Import(value = {SimpleBaseConfig.class, SentryClientAspect.class,})
 public class SimpleWebConfig {
 }

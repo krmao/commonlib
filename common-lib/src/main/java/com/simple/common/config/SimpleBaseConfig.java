@@ -23,7 +23,7 @@ import javax.annotation.PreDestroy;
 
 @Configuration
 @EnableConfigurationProperties(SimpleProps.class)
-public class SimpleConfig implements WebMvcConfigurer {
+public class SimpleBaseConfig implements WebMvcConfigurer {
 
     @Value("${spring.profiles.active:NA}")
     private String activeProfile;

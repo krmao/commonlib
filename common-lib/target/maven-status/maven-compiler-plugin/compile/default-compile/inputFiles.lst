@@ -18,7 +18,6 @@
 /Users/ctrip/program/java/commonlib/common-lib/src/main/java/com/simple/core/util/DateUtil.java
 /Users/ctrip/program/java/commonlib/common-lib/src/main/java/com/simple/common/crypto/Hash.java
 /Users/ctrip/program/java/commonlib/common-lib/src/main/java/com/simple/common/validation/PhoneNumber.java
-/Users/ctrip/program/java/commonlib/common-lib/src/main/java/com/simple/common/config/SimpleConfig.java
 /Users/ctrip/program/java/commonlib/common-lib/src/main/java/com/simple/common/async/ContextCopyingDecorator.java
 /Users/ctrip/program/java/commonlib/common-lib/src/main/java/com/simple/common/api/BaseRequest.java
 /Users/ctrip/program/java/commonlib/common-lib/src/main/java/com/simple/common/api/BaseResponse.java
@@ -41,6 +40,7 @@
 /Users/ctrip/program/java/commonlib/common-lib/src/main/java/com/simple/core/encrypt/DesTokenUtil.java
 /Users/ctrip/program/java/commonlib/common-lib/src/main/java/com/simple/common/auth/FeignRequestHeaderInterceptor.java
 /Users/ctrip/program/java/commonlib/common-lib/src/main/java/com/simple/core/token/UserTokenHelp.java
+/Users/ctrip/program/java/commonlib/common-lib/src/main/java/com/simple/common/config/SimpleBaseConfig.java
 /Users/ctrip/program/java/commonlib/common-lib/src/main/java/com/simple/common/error/ServiceException.java
 /Users/ctrip/program/java/commonlib/common-lib/src/main/java/com/simple/common/error/GlobalExceptionTranslator.java
 /Users/ctrip/program/java/commonlib/common-lib/src/main/java/com/simple/common/services/SecurityConstant.java
