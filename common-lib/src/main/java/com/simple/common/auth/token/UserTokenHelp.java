@@ -1,7 +1,5 @@
-package com.simple.core.token;
+package com.simple.common.auth.token;
 
-import com.simple.core.encrypt.DesPcTokenUtil;
-import com.simple.core.encrypt.DesTokenUtil;
 import com.simple.core.redis.JedisDBEnum;
 import com.simple.core.redis.JedisHelper;
 import org.apache.commons.lang.StringUtils;

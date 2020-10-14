@@ -2,7 +2,7 @@ package com.simple.common.auth;
 
 import com.simple.common.api.BaseResponse;
 import com.simple.common.error.ServiceException;
-import com.simple.core.token.ValidateLoginHelp;
+import com.simple.common.auth.token.ValidateLoginHelp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

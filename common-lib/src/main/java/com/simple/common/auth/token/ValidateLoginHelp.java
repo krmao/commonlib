@@ -1,9 +1,7 @@
-package com.simple.core.token;
+package com.simple.common.auth.token;
 
 import com.simple.common.api.BaseResponse;
 import com.simple.common.api.ResultCode;
-import com.simple.core.encrypt.DesPcTokenUtil;
-import com.simple.core.encrypt.DesTokenUtil;
 import com.simple.core.redis.JedisDBEnum;
 import com.simple.core.redis.JedisHelper;
 import org.apache.commons.lang.StringUtils;
@@ -49,9 +47,6 @@ public class ValidateLoginHelp {
 
     public static boolean refreshToken(String token, int applicationType) {
         int expTimeSeconds = 60 * 60 * 24 * 3;
-        //返回对象
-        //ResponseMessage resMessage = new ResponseMessage();
-        //JedisHelper.getInstance().setExpireSeconds(null, expTimeSeconds, JedisDBEnum.WECHAT);
         if (StringUtils.isBlank(token)){
             return false;
         }

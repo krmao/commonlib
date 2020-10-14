@@ -1,4 +1,4 @@
-package com.simple.core.util;
+package com.simple.common.util;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
@@ -72,7 +72,7 @@ public class DateUtil {
      * Date转换到字符串yyyy-MM-dd
      * @param date Date
      * @return String yyyy-MM-dd
-     * @see org.apache.commons.lang.time.DateFormatUtils.DateFormatUtils#format(Date, String)
+     * @see DateFormatUtils.DateFormatUtils#format(Date, String)
      */
     public static String date2StrDate(Date date) {
         return DateFormatUtils.format(date, WEB_IN_PATTERN);
