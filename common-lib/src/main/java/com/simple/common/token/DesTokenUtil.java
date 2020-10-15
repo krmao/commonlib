@@ -1,4 +1,4 @@
-package com.simple.common.auth.token;
+package com.simple.common.token;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;

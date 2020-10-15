@@ -1,4 +1,4 @@
-package com.simple.common.auth.token;
+package com.simple.common.token;
 
 import org.springframework.core.io.ClassPathResource;
 

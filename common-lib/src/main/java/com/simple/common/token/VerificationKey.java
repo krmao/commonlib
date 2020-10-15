@@ -1,6 +1,4 @@
-package com.simple.common.auth.token;
-
-import java.util.List;
+package com.simple.common.token;
 
 
 public class VerificationKey {

@@ -57,8 +57,9 @@ public class SimpleBaseConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AuthorizeInterceptor());
         registry.addInterceptor(new AuthenticationInterceptor());
+        registry.addInterceptor(new AuthorizeInterceptor());
+
     }
 
     @Bean

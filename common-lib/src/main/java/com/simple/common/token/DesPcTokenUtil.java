@@ -1,4 +1,4 @@
-package com.simple.common.auth.token;
+package com.simple.common.token;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -22,13 +22,14 @@ public class AuthorizeInterceptor extends HandlerInterceptorAdapter {
         }
 
         String[] allowedHeaders = authorize.value();
-        String authzHeader = request.getHeader(AuthConstant.AUTHORIZATION_HEADER);
+        //String authzHeader = request.getHeader(AuthConstant.AUTHORIZATION_HEADER);
+        String authHeader = Sessions.getAuthorizationHeader(request);
 
-        if (StringUtils.isEmpty(authzHeader)) {
+        if (StringUtils.isEmpty(authHeader)) {
             throw new PermissionDeniedException(AuthConstant.ERROR_MSG_MISSING_AUTH_HEADER);
         }
 
-        if (!Arrays.asList(allowedHeaders).contains(authzHeader)) {
+        if (!Arrays.asList(allowedHeaders).contains(authHeader)) {
             throw new PermissionDeniedException(AuthConstant.ERROR_MSG_DO_NOT_HAVE_ACCESS);
         }
 

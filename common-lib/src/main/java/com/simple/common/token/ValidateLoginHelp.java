@@ -1,4 +1,4 @@
-package com.simple.common.auth.token;
+package com.simple.common.token;
 
 import com.simple.common.api.BaseResponse;
 import com.simple.common.api.ResultCode;
@@ -23,12 +23,15 @@ public class ValidateLoginHelp {
      * @param
      * @return
      */
-    public static BaseResponse validateToken(String token) {
+    public static BaseResponse validateToken(String token ) {
 
 
         if (StringUtils.isBlank(token)) {
             logger.error("请求参数TokenId不能为空!");
             return BaseResponse.build().code(ResultCode.FAILURE).message("未登录，请登录");
+        }
+        if (!JwtUtils.verifyToken(token)){
+            return BaseResponse.build().code(ResultCode.FAILURE).message("Token无效");
         }
         //step2:根据token获取userId
         String wechatTokenValue = JedisHelper.getInstance().get(token, JedisDBEnum.WECHAT);
@@ -59,20 +62,6 @@ public class ValidateLoginHelp {
         } else {
             JedisHelper.getInstance().setExpireSeconds(token, expTimeSeconds, JedisDBEnum.PC);
         }
-
-//        String expDateString = tokenArray[3];
-//        String refreshToken = tokenArray[2];
-//
-//        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        Date expDate = dateFormat.parse(expDateString);
-//        //Calendar c = new GregorianCalendar();
-//        Date now = new Date();
-//        long timeDiff = expDate.getTime() - now.getTime();
-//        long hourDiff = timeDiff / (1000*60*60);
-
-        //已登录
-        //resMessage.setStatus(ResponseMessage.SUCCESS_CODE);
-        //return resMessage;
         return true;
     }
 

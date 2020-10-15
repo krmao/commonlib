@@ -2,7 +2,11 @@ package com.simple.common.auth;
 
 import com.simple.common.api.BaseResponse;
 import com.simple.common.error.ServiceException;
-import com.simple.common.auth.token.ValidateLoginHelp;
+import com.simple.common.token.JwtUtils;
+import com.simple.common.token.ValidateLoginHelp;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.tomcat.util.http.MimeHeaders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -12,7 +16,11 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 拦截器,用于控制是否登录
@@ -33,7 +41,6 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
-
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
         //判断在方法上是否有添加需登录注解(若添加则验证,否则相反)
@@ -44,13 +51,22 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         try {
 
             //用户登录验证
-            String token = request.getHeader("token");
-            BaseResponse result = ValidateLoginHelp.validateToken(token);
+            //String token = request.getHeader(AuthConstant.AUTHENTICATION_HEADER);
+            //BaseResponse result = ValidateLoginHelp.validateToken(token);
+            BaseResponse result = Sessions.validateAuthentication(request);
             if (!result.success()) {
                 throw new ServiceException(result.getStatus().getMessage());
-            } else {
-                return true;
             }
+            //解析出token中的Authorization中的权限信息放到请求头中方便后续的认证
+            String roles = Sessions.getAuthorizationRole(request);
+            if (null != roles) {
+                Map<String, String> map = new HashMap<>();
+                map.put(AuthConstant.AUTHORIZATION_HEADER, roles);
+                addHeader(request, map);
+
+            }
+
+
         } catch (Exception e) {
             logger.error("登录拦截器读取请求体参数信息异常!", e);
         }
@@ -73,16 +89,14 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
             String responseToken = response.getHeader("token");
             String requestToken = request.getHeader("token");
-            if ((null == responseToken) || ("".equals(responseToken))) {
+            if (StringUtils.isBlank(responseToken)) {
                 response.setHeader("token", requestToken);
                 responseToken = requestToken;
             }
-            int appType = 4;
-            String applicationType = getApplicationType(request, response);
-            if (applicationType.toLowerCase().equals("wx")) {
-                appType = 3;
+            if (StringUtils.isNotBlank(responseToken)){
+                Sessions.refreshToken(responseToken);
             }
-            ValidateLoginHelp.refreshToken(responseToken, appType);
+            //ValidateLoginHelp.refreshToken(responseToken, appType);
         } catch (Exception ex) {
             logger.error("请求刷新token失败", ex);
         }
@@ -98,12 +112,38 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         }
     }
 
-    /**
-     * 返回信息
-     *
-     * @param response
-     * @param resMessage
-     */
+    private void addHeader(HttpServletRequest request, Map<String, String> headerMap) {
+        if (headerMap == null || headerMap.isEmpty()) {
+            return;
+        }
+
+        Class<? extends HttpServletRequest> c = request.getClass();
+        System.out.println(c.getName());
+
+        try {
+            Field requestField = c.getDeclaredField("request");
+            requestField.setAccessible(true);
+
+            Object o = requestField.get(request);
+            Field coyoteRequest = o.getClass().getDeclaredField("coyoteRequest");
+            coyoteRequest.setAccessible(true);
+
+            Object o2 = coyoteRequest.get(o);
+            Field headers = o2.getClass().getDeclaredField("headers");
+            headers.setAccessible(true);
+
+            MimeHeaders mimeHeaders = (MimeHeaders) headers.get(o2);
+            for (Map.Entry<String, String> entry : headerMap.entrySet()) {
+                mimeHeaders.removeHeader(entry.getKey());
+                mimeHeaders.addValue(entry.getKey()).setString(entry.getValue());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 //    private void returnJsonMessage(HttpServletResponse response, ResponseMessage resMessage) {
 //        PrintWriter writer = null;
 //        response.setCharacterEncoding(DataEncode.UTF8);

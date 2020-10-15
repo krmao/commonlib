@@ -1,4 +1,4 @@
-package com.simple.common.auth.token;
+package com.simple.common.token;
 
 import com.alibaba.fastjson.JSON;
 import com.auth0.jwt.JWT;
@@ -22,6 +22,7 @@ public class JwtUtils {
     static RsaJsonWebKey jwk = null;
     static String secretString = "simple";
     static String keyId = "simple_id";
+    static String issuer = "simple_issuer";
     static String jwkUse = "simple_use";
     static String publicKeyFile = "public_key.pem";
     static String privateKeyFile = "private_key.pem";
@@ -173,34 +174,40 @@ public static String createNewToken(String openId) {
 
     }
     */
-    public static String createToken(Map<String, Object> payload) throws Exception {
+    public static String createToken(Map<String, Object> payload) {
 
-        JwtClaims claims = new JwtClaims();
-        claims.setIssuer("auth0");  // who creates the token and signs it
-        //claims.setAudience("Audience"); // to whom the token is intended to be sent
-        //claims.setExpirationTimeMinutesInTheFuture(10); // time when the token will expire (10 minutes from now)
-        claims.setIssuedAtToNow();  // when the token was issued/created (now)
-        claims.setClaim("email", "master@example.com"); // additional claims/attributes about the subject can be added
-        if(null != payload){
-            Iterator iter = payload.entrySet().iterator();
-            while (iter.hasNext()) {
-                Map.Entry entry = (Map.Entry) iter.next();
-                String key = (String)entry.getKey();
-                Object val = entry.getValue();
-                claims.setClaim(key, val);
+        try {
+            JwtClaims claims = new JwtClaims();
+            claims.setIssuer(JwtUtils.issuer);  // who creates the token and signs it
+            //claims.setAudience("Audience"); // to whom the token is intended to be sent
+            //claims.setExpirationTimeMinutesInTheFuture(10); // time when the token will expire (10 minutes from now)
+            claims.setIssuedAtToNow();  // when the token was issued/created (now)
+            claims.setClaim("email", "master@example.com"); // additional claims/attributes about the subject can be added
+            if (null != payload) {
+                Iterator iter = payload.entrySet().iterator();
+                while (iter.hasNext()) {
+                    Map.Entry entry = (Map.Entry) iter.next();
+                    String key = (String) entry.getKey();
+                    Object val = entry.getValue();
+                    claims.setClaim(key, val);
+                }
             }
+
+            JsonWebSignature jws = new JsonWebSignature();
+            jws.setPayload(claims.toJson());
+            PrivateKey privateKey = RsaUtils.getPrivateKey(JwtUtils.privateKeyFile);
+            jws.setKey(privateKey);
+            jws.setKeyIdHeaderValue(JwtUtils.keyId);
+            jws.setAlgorithmHeaderValue(AlgorithmIdentifiers.RSA_USING_SHA256);
+
+            String jwt = jws.getCompactSerialization();
+            System.out.println("JWT: " + jwt);
+            return jwt;
+        }catch (Exception ex){
+            ex.printStackTrace();
+            return null;
         }
 
-        JsonWebSignature jws = new JsonWebSignature();
-        jws.setPayload(claims.toJson());
-        PrivateKey privateKey = RsaUtils.getPrivateKey(JwtUtils.privateKeyFile);
-        jws.setKey(privateKey);
-        jws.setKeyIdHeaderValue(JwtUtils.keyId);
-        jws.setAlgorithmHeaderValue(AlgorithmIdentifiers.RSA_USING_SHA256);
-
-        String jwt = jws.getCompactSerialization();
-        System.out.println("JWT: " + jwt);
-        return jwt;
 
     }
 
@@ -225,7 +232,7 @@ public static String createNewToken(String openId) {
             RSAPublicKey publicKey = (RSAPublicKey) RsaUtils.getPublicKey(JwtUtils.publicKeyFile);
             Algorithm algorithm = Algorithm.RSA256(publicKey, privateKey);
             JWTVerifier verifier = JWT.require(algorithm)
-                    .withIssuer("auth0")
+                    .withIssuer(JwtUtils.issuer)
                     .build(); //Reusable verifier instance
             DecodedJWT jwtor = verifier.verify(token);
             String algorithmName = jwtor.getAlgorithm();
@@ -238,6 +245,44 @@ public static String createNewToken(String openId) {
             e.printStackTrace();
         }
         return token;
+    }
+
+    public static boolean verifyToken(String token) {
+        try {
+            RSAPrivateKey privateKey = (RSAPrivateKey) RsaUtils.getPrivateKey(JwtUtils.privateKeyFile);
+            RSAPublicKey publicKey = (RSAPublicKey) RsaUtils.getPublicKey(JwtUtils.publicKeyFile);
+            Algorithm algorithm = Algorithm.RSA256(publicKey, privateKey);
+            JWTVerifier verifier = JWT.require(algorithm)
+                    .withIssuer(JwtUtils.issuer)
+                    .build();
+            verifier.verify(token);
+            return true;
+        } catch (Exception e) {
+            System.out.println("failed to verify token");
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public static String decodeToken(String token) {
+        try {
+            RSAPrivateKey privateKey = (RSAPrivateKey) RsaUtils.getPrivateKey(JwtUtils.privateKeyFile);
+            RSAPublicKey publicKey = (RSAPublicKey) RsaUtils.getPublicKey(JwtUtils.publicKeyFile);
+            Algorithm algorithm = Algorithm.RSA256(publicKey, privateKey);
+            JWTVerifier verifier = JWT.require(algorithm)
+                    .withIssuer(JwtUtils.issuer)
+                    .build();
+            verifier.verify(token);
+            DecodedJWT decode = JWT.decode(token);
+            return decode.getClaim("roles").asString();
+
+        } catch (Exception e) {
+            System.out.println("failed to verify token");
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     public static VerificationKeys createJWKs() {

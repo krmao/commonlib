@@ -26,8 +26,18 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+        <!-- NOSQL begin -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+        </dependency>
+        <!-- NOSQL end -->
         <dependency>
             <groupId>io.sentry</groupId>
             <artifactId>sentry</artifactId>
@@ -50,12 +60,7 @@
             <artifactId>jose4j</artifactId>
             <version>0.7.2</version>
         </dependency>
-        <!-- NOSQL begin -->
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-        </dependency>
-        <!-- NOSQL end -->
+
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>

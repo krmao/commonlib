@@ -1,4 +1,4 @@
-package com.simple.common.util;
+package com.simple.core.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;

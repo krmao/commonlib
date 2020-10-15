@@ -1,4 +1,4 @@
-package com.simple.common.auth.token;
+package com.simple.common.token;
 
 import com.simple.core.redis.JedisDBEnum;
 import com.simple.core.redis.JedisHelper;
