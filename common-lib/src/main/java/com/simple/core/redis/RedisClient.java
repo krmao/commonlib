@@ -1,5 +1,7 @@
 package com.simple.core.redis;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,14 +48,22 @@ public class RedisClient {
         }
 
         @Bean
-        RedisTemplate<String, Object> objRedisTemplate(JedisConnectionFactory connectionFactory,
-                                                       Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer) {
+        RedisTemplate<String, Object> objRedisTemplate(JedisConnectionFactory connectionFactory) {
             RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
             redisTemplate.setConnectionFactory(connectionFactory);
-            redisTemplate.setDefaultSerializer(jackson2JsonRedisSerializer);
+
+            Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+            ObjectMapper om = new ObjectMapper();
+            om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+            om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+            jackson2JsonRedisSerializer.setObjectMapper(om);
+
             StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+            redisTemplate.setValueSerializer(jackson2JsonRedisSerializer); //1
             redisTemplate.setKeySerializer(stringRedisSerializer);
             redisTemplate.setHashKeySerializer(stringRedisSerializer);
+            redisTemplate.afterPropertiesSet();
+
             RedisClient.templateInstance = redisTemplate;
             return redisTemplate;
         }

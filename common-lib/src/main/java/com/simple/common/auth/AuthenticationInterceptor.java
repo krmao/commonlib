@@ -89,7 +89,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
             String responseToken = response.getHeader("token");
             String requestToken = request.getHeader("token");
-            if (StringUtils.isBlank(responseToken)) {
+            if (StringUtils.isBlank(responseToken) && StringUtils.isNotBlank(requestToken)) {
                 response.setHeader("token", requestToken);
                 responseToken = requestToken;
             }
