@@ -107,6 +107,14 @@ public class ServiceHelper {
 
 
     }
+    public static void handleServiceException(String msg) {
+        if (EnvConfig.env().isDebug()) {
+            logger.error(msg);
+        } else {
+            SentryClientFactory.sentryClient().sendMessage(msg);
+        }
+    }
+
 
     public static String errorMessages(String uri, String params, String msg, Exception ex) {
 
