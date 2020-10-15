@@ -48,28 +48,24 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         if (methodAnnotation == null) {
             return true;
         }
-        try {
-
-            //用户登录验证
-            //String token = request.getHeader(AuthConstant.AUTHENTICATION_HEADER);
-            //BaseResponse result = ValidateLoginHelp.validateToken(token);
-            BaseResponse result = Sessions.validateAuthentication(request);
-            if (!result.success()) {
-                throw new ServiceException(result.getStatus().getMessage());
-            }
-            //解析出token中的Authorization中的权限信息放到请求头中方便后续的认证
-            String roles = Sessions.getAuthorizationRole(request);
-            if (null != roles) {
-                Map<String, String> map = new HashMap<>();
-                map.put(AuthConstant.AUTHORIZATION_HEADER, roles);
-                addHeader(request, map);
-
-            }
 
 
-        } catch (Exception e) {
-            logger.error("登录拦截器读取请求体参数信息异常!", e);
+        //用户登录验证
+        //String token = request.getHeader(AuthConstant.AUTHENTICATION_HEADER);
+        //BaseResponse result = ValidateLoginHelp.validateToken(token);
+        BaseResponse result = Sessions.validateAuthentication(request);
+        if (!result.success()) {
+            throw new ServiceException(result.getStatus().getMessage());
         }
+        //解析出token中的Authorization中的权限信息放到请求头中方便后续的认证
+        String roles = Sessions.getAuthorizationRole(request);
+        if (null != roles) {
+            Map<String, String> map = new HashMap<>();
+            map.put(AuthConstant.AUTHORIZATION_HEADER, roles);
+            addHeader(request, map);
+
+        }
+
 
         return true;
     }
@@ -93,7 +89,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
                 response.setHeader("token", requestToken);
                 responseToken = requestToken;
             }
-            if (StringUtils.isNotBlank(responseToken)){
+            if (StringUtils.isNotBlank(responseToken)) {
                 Sessions.refreshToken(responseToken);
             }
             //ValidateLoginHelp.refreshToken(responseToken, appType);
