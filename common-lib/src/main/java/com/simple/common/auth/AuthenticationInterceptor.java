@@ -45,7 +45,8 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         Method method = handlerMethod.getMethod();
         //判断在方法上是否有添加需登录注解(若添加则验证,否则相反)
         LoginRequired methodAnnotation = method.getAnnotation(LoginRequired.class);
-        if (methodAnnotation == null) {
+        Authorize methodAnnotationz = method.getAnnotation(Authorize.class);
+        if ((methodAnnotation == null) && (null == methodAnnotationz)) {
             return true;
         }
 
@@ -57,15 +58,17 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         if (!result.success()) {
             throw new ServiceException(result.getStatus().getMessage());
         }
-        //解析出token中的Authorization中的权限信息放到请求头中方便后续的认证
-        String roles = Sessions.getAuthorizationRole(request);
-        if (null != roles) {
-            Map<String, String> map = new HashMap<>();
-            map.put(AuthConstant.AUTHORIZATION_HEADER, roles);
-            addHeader(request, map);
 
+        if (null != methodAnnotationz) {
+            //解析出token中的Authorization中的权限信息放到请求头中方便后续的认证
+            String roles = Sessions.getAuthorizationRole(request);
+            if (null != roles) {
+                Map<String, String> map = new HashMap<>();
+                map.put(AuthConstant.AUTHORIZATION_HEADER, roles);
+                addHeader(request, map);
+
+            }
         }
-
 
         return true;
     }
