@@ -62,6 +62,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         if (null != methodAnnotationz) {
             //解析出token中的Authorization中的权限信息放到请求头中方便后续的认证
             String roles = Sessions.getAuthorizationRole(request);
+            //System.out.println("decode the roles from toke is*************" +  roles);
             if (null != roles) {
                 Map<String, String> map = new HashMap<>();
                 map.put(AuthConstant.AUTHORIZATION_HEADER, roles);

@@ -6,6 +6,8 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.simple.common.auth.AuthConstant;
+import com.simple.common.auth.Authorize;
 import org.jose4j.jwk.PublicJsonWebKey;
 import org.jose4j.jwk.RsaJsonWebKey;
 import org.jose4j.jws.AlgorithmIdentifiers;
@@ -275,7 +277,7 @@ public static String createNewToken(String openId) {
                     .build();
             verifier.verify(token);
             DecodedJWT decode = JWT.decode(token);
-            return decode.getClaim("roles").asString();
+            return decode.getClaim(AuthConstant.AUTHORIZATION_HEADER).asString();
 
         } catch (Exception e) {
             System.out.println("failed to verify token");

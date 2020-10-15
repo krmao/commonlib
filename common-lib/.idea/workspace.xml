@@ -4,6 +4,9 @@
     <list default="true" id="79c07793-0136-459d-8ba8-867ab5abbb86" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/simple/common/auth/AuthenticationInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/simple/common/auth/AuthenticationInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/simple/common/auth/AuthorizeInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/simple/common/auth/AuthorizeInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/simple/common/token/JwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/simple/common/token/JwtUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../simple-pom/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../simple-pom/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,7 +88,7 @@
       <workItem from="1601811833163" duration="21205000" />
       <workItem from="1602672781844" duration="11201000" />
       <workItem from="1602741273231" duration="10780000" />
-      <workItem from="1602755905674" duration="3440000" />
+      <workItem from="1602755905674" duration="4344000" />
     </task>
     <servers />
   </component>

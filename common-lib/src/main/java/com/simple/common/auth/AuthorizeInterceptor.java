@@ -22,7 +22,8 @@ public class AuthorizeInterceptor extends HandlerInterceptorAdapter {
         }
 
         String[] allowedHeaders = authorize.value();
-        //String authzHeader = request.getHeader(AuthConstant.AUTHORIZATION_HEADER);
+        String authzHeader = request.getHeader(AuthConstant.AUTHORIZATION_HEADER);
+        //System.out.println("get the roles from toke is*************" +  authzHeader);
         String authHeader = Sessions.getAuthorizationHeader(request);
 
         if (StringUtils.isEmpty(authHeader)) {
