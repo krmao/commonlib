@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="79c07793-0136-459d-8ba8-867ab5abbb86" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/simple/common/config/RedisAutoConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/spring.factories" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/simple/common/config/SimpleRestConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/simple/common/config/SimpleRestConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/simple/core/redis/RedisClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/simple/core/redis/RedisClient.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +50,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -60,11 +64,11 @@
       <recent name="com.simple.common.auth" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main" />
       <recent name="$PROJECT_DIR$/src/main/java/com/simple/common/auth/token" />
       <recent name="$PROJECT_DIR$/src/main/java/com/simple/common/token" />
       <recent name="$PROJECT_DIR$/src/main/java/com/simple/common" />
       <recent name="$PROJECT_DIR$/src/main/java/com/simple/common/auth" />
-      <recent name="$PROJECT_DIR$/src/main/java/com/simple/core" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -83,7 +87,7 @@
       <workItem from="1601811833163" duration="21205000" />
       <workItem from="1602672781844" duration="11201000" />
       <workItem from="1602741273231" duration="10780000" />
-      <workItem from="1602755905674" duration="5774000" />
+      <workItem from="1602755905674" duration="8753000" />
     </task>
     <servers />
   </component>
