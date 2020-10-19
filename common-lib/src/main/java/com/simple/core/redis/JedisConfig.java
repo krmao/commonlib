@@ -50,7 +50,7 @@ public class JedisConfig {
         JedisConfig.redis_testOnBorrow = redis_testOnBorrow;
     }
 
-    @Value("${redis.passWord}")
+    @Value("${redis.passWord:meetinglive}")
     public  void setRedis_passWord(String redis_passWord) {
         JedisConfig.redis_passWord = redis_passWord;
     }
