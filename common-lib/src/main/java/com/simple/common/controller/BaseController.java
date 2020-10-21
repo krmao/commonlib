@@ -1,6 +1,7 @@
 package com.simple.common.controller;
 
 import com.simple.common.api.BaseResponse;
+import com.simple.common.env.EnvConfig;
 import com.simple.common.error.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class BaseController {
 
+    @Autowired
+    private EnvConfig envConfig;
 
     @Autowired
     private ServiceHelper serviceHelper;
