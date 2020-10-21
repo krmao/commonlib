@@ -88,11 +88,16 @@ public class Sessions {
     }
 
 
-    public static void logout(String externalApex, HttpServletResponse response) {
+    public static void logout(String domain, HttpServletRequest request, HttpServletResponse response) {
+        String token = Sessions.getAuthToken(request);
+        Sessions.logout(domain,token,response);
+    }
+    public static void logout(String domain, String token, HttpServletResponse response) {
+        SimpleRedisClient.templateInstance.delete(token);
         Cookie cookie = new Cookie(AuthConstant.COOKIE_NAME, "");
         cookie.setPath("/");
         cookie.setMaxAge(0);
-        cookie.setDomain(externalApex);
+        cookie.setDomain(domain);
         response.addCookie(cookie);
     }
 
