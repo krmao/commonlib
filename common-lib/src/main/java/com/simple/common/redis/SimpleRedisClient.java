@@ -1,4 +1,4 @@
-package com.simple.core.redis;
+package com.simple.common.redis;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -6,14 +6,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-//import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+//import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+
 @Configuration
-public class RedisClient {
+public class SimpleRedisClient {
        public static ValueOperations<String, Object> operatorInstance;
        public static RedisTemplate<String, Object> templateInstance;
 //
@@ -64,14 +65,14 @@ public class RedisClient {
             redisTemplate.setHashKeySerializer(stringRedisSerializer);
             redisTemplate.afterPropertiesSet();
 
-            RedisClient.templateInstance = redisTemplate;
+            SimpleRedisClient.templateInstance = redisTemplate;
             return redisTemplate;
         }
 
         @Bean
         ValueOperations<String, Object> objOperations(RedisTemplate<String, Object> redisTemplate) {
-            RedisClient.operatorInstance = redisTemplate.opsForValue();
-            return RedisClient.operatorInstance;
+            SimpleRedisClient.operatorInstance = redisTemplate.opsForValue();
+            return SimpleRedisClient.operatorInstance;
         }
 
     }

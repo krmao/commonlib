@@ -2,10 +2,9 @@ package com.simple.common.auth;
 
 import com.simple.common.api.BaseResponse;
 import com.simple.common.api.ResultCode;
-import com.simple.common.crypto.Sign;
 import com.simple.common.error.ServiceException;
 import com.simple.common.token.JwtUtils;
-import com.simple.core.redis.RedisClient;
+import com.simple.common.redis.SimpleRedisClient;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +58,7 @@ public class Sessions {
             throw new ServiceException("failed to create token");
         }
         AuthModel userInfo =  AuthModel.builder().token(token).userId(userId).openId(openId).id(id).build();
-        RedisClient.operatorInstance.set(token, userInfo,1L, TimeUnit.DAYS);
+        SimpleRedisClient.operatorInstance.set(token, userInfo,1L, TimeUnit.DAYS);
         return token;
     }
 
@@ -99,10 +98,10 @@ public class Sessions {
 
     public static void saveSessionUserInfo(String token, Integer id,  String userId, String openId){
         AuthModel userInfo =  AuthModel.builder().token(token).userId(userId).openId(openId).build();
-        RedisClient.operatorInstance.set(token, userInfo,1L, TimeUnit.DAYS);
+        SimpleRedisClient.operatorInstance.set(token, userInfo,1L, TimeUnit.DAYS);
     }
     public static AuthModel getSessionUserInfo(String token){
-        AuthModel userInfo = (AuthModel)RedisClient.operatorInstance.get(token);
+        AuthModel userInfo = (AuthModel) SimpleRedisClient.operatorInstance.get(token);
         return userInfo;
     }
 
@@ -122,7 +121,7 @@ public class Sessions {
             return BaseResponse.build().code(ResultCode.FAILURE).message("Token无效");
         }
         //step2:根据token获取userId
-        AuthModel authModel = (AuthModel)RedisClient.operatorInstance.get(token);
+        AuthModel authModel = (AuthModel) SimpleRedisClient.operatorInstance.get(token);
         if (null== authModel){
             logger.error("登录过期，请重新登录");
             return BaseResponse.build().code(ResultCode.FAILURE).message("登录过期，请重新登录");
@@ -137,8 +136,8 @@ public class Sessions {
         if (StringUtils.isBlank(token)){
             return false;
         }
-        AuthModel authModel = (AuthModel)RedisClient.operatorInstance.get(token);
-        RedisClient.operatorInstance.set(token, authModel, 1L, TimeUnit.DAYS);
+        AuthModel authModel = (AuthModel) SimpleRedisClient.operatorInstance.get(token);
+        SimpleRedisClient.operatorInstance.set(token, authModel, 1L, TimeUnit.DAYS);
         return true;
     }
 

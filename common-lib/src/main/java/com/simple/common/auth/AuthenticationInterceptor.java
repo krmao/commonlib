@@ -2,8 +2,7 @@ package com.simple.common.auth;
 
 import com.simple.common.api.BaseResponse;
 import com.simple.common.error.ServiceException;
-import com.simple.common.token.JwtUtils;
-import com.simple.common.token.ValidateLoginHelp;
+
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.tomcat.util.http.MimeHeaders;
@@ -52,8 +51,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
 
         //用户登录验证
-        //String token = request.getHeader(AuthConstant.AUTHENTICATION_HEADER);
-        //BaseResponse result = ValidateLoginHelp.validateToken(token);
+
         BaseResponse result = Sessions.validateAuthentication(request);
         if (!result.success()) {
             throw new ServiceException(result.getStatus().getMessage());

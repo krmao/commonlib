@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.simple.core.redis.RedisClient
+com.simple.common.redis.SimpleRedisClient

@@ -1,4 +1,4 @@
-package com.simple.core.util;
+package com.simple.common.utils;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
