@@ -2,6 +2,7 @@ package com.simple.common.auth;
 
 import com.simple.common.api.BaseResponse;
 import com.simple.common.api.ResultCode;
+import com.simple.common.env.EnvConfig;
 import com.simple.common.error.ServiceException;
 import com.simple.common.token.JwtUtils;
 import com.simple.common.redis.SimpleRedisClient;
@@ -89,6 +90,7 @@ public class Sessions {
 
 
     public static void logout(String domain, HttpServletRequest request, HttpServletResponse response) {
+        //EnvConfig.env().get
         String token = Sessions.getAuthToken(request);
         Sessions.logout(domain,token,response);
     }

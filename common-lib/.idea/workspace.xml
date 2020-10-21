@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="79c07793-0136-459d-8ba8-867ab5abbb86" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/common-lib.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/common-lib.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_pool2_2_6_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__redis_clients_jedis_2_9_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/simple/common/auth/Sessions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/simple/common/auth/Sessions.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -88,7 +83,7 @@
       <workItem from="1601811833163" duration="21205000" />
       <workItem from="1602672781844" duration="11201000" />
       <workItem from="1602741273231" duration="10780000" />
-      <workItem from="1602755905674" duration="12763000" />
+      <workItem from="1602755905674" duration="13107000" />
     </task>
     <servers />
   </component>
