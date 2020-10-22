@@ -18,7 +18,9 @@
         <spring.cloud.version>Greenwich.RELEASE</spring.cloud.version>
     </properties>
  
-
+    <modules>
+        <module>common-lib</module>
+    </modules>
 
     <dependencyManagement>
         <dependencies>
