@@ -3,6 +3,7 @@ package com.simple.common.error;
 import com.github.structlog4j.ILogger;
 import com.github.structlog4j.SLoggerFactory;
 import com.simple.common.api.BaseResponse;
+import com.simple.common.api.GenericResponse;
 import com.simple.common.api.ResultCode;
 import com.simple.common.auth.Sessions;
 import com.simple.common.env.EnvConfig;
@@ -53,7 +54,7 @@ public class ServiceHelper {
         }
     }
 
-    public static BaseResponse handleControllerException(Exception ex, String msg) {
+    public static GenericResponse handleControllerException(Exception ex, String msg) {
         try {
             String requestURL = Sessions.getCurrentRequest().getRequestURI();
             InputStream inputStream = Sessions.getCurrentRequest().getInputStream();
@@ -72,10 +73,12 @@ public class ServiceHelper {
                 ex.printStackTrace();
             }
         }
-        return BaseResponse.build().code(ResultCode.FAILURE).message(msg);
+        GenericResponse res = GenericResponse.build();
+        res.code(ResultCode.FAILURE).message(msg);
+        return res;
     }
 
-    public static BaseResponse handleControllerException(HttpServletRequest request, Exception ex, String msg) {
+    public static GenericResponse handleControllerException(HttpServletRequest request, Exception ex, String msg) {
         try {
             String requestURL = request.getRequestURI();
             InputStream inputStream = request.getInputStream();
@@ -94,7 +97,9 @@ public class ServiceHelper {
                 ex.printStackTrace();
             }
         }
-        return BaseResponse.build().code(ResultCode.FAILURE).message(msg);
+        GenericResponse res = GenericResponse.build();
+        res.code(ResultCode.FAILURE).message(msg);
+        return res;
     }
 
     public static void handleServiceException(Exception ex, String msg) {
