@@ -19,12 +19,19 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class Sessions {
+    public static final String DEFAULT_ROLE = "guest";
     private static final Logger logger = LoggerFactory.getLogger(Sessions.class);
     public static final long SHORT_SESSION = TimeUnit.HOURS.toMillis(12);
     public static final long LONG_SESSION = TimeUnit.HOURS.toMillis(30 * 24);
 
     public static String login(String userId, String roles, String openId, String unionId) {
         return Sessions.createTokenWithUserInfo(userId,roles, openId, unionId);
+    }
+    public static String login(String userId, String roles) {
+        return Sessions.createTokenWithUserInfo(userId,roles, "", "");
+    }
+    public static String login(String userId) {
+        return Sessions.createTokenWithUserInfo(userId,Sessions.DEFAULT_ROLE, "", "");
     }
     public static void loginUser(Integer id, String userId, String roles, String openId,String unionId, String domain,boolean rememberMe, HttpServletResponse response) {
         String token = Sessions.createTokenWithUserInfo(userId, roles, openId, unionId);
