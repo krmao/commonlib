@@ -66,7 +66,7 @@ public class Sessions {
         AuthModel userInfo =  AuthModel.builder().token(newToken).userId(userId).openId(openId).id(id).build();
         SimpleRedisClient.operatorInstance.set(newToken, userInfo,1L, TimeUnit.DAYS);
         SimpleRedisClient.operatorInstance.set(userId, userInfo,1L, TimeUnit.DAYS);
-        return token;
+        return newToken;
     }
 
     public static String getCookieToken(HttpServletRequest request) {
