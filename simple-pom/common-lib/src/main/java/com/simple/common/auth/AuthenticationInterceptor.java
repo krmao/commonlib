@@ -52,9 +52,9 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
         //用户登录验证
 
-        BaseResponse result = Sessions.validateAuthentication(request);
-        if (!result.success()) {
-            throw new ServiceException(result.getStatus().getMessage());
+        boolean result  = Sessions.validateAuthentication(request);
+        if (!result) {
+            throw new ServiceException("请登录！");
         }
 
         if (null != methodAnnotationz) {
