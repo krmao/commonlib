@@ -55,7 +55,7 @@ public class Sessions {
         Map<String, Object> jwtPayload =  new HashMap<String, Object>();
         jwtPayload.put(AuthConstant.AUTHORIZATION_HEADER,roles);
         String newToken = JwtUtils.createToken(jwtPayload);
-        if (null == token){
+        if (null == newToken){
             throw new ServiceException("failed to create token");
         }
         AuthModel userInfoOld = (AuthModel)SimpleRedisClient.operatorInstance.get(userId);
