@@ -1,8 +1,5 @@
 package com.simple.common.auth;
 
-import com.simple.common.api.BaseResponse;
-import com.simple.common.api.ResultCode;
-import com.simple.common.env.EnvConfig;
 import com.simple.common.error.ServiceException;
 import com.simple.common.token.JwtUtils;
 import com.simple.common.redis.SimpleRedisClient;
@@ -26,10 +23,28 @@ public class Sessions {
     public static final long SHORT_SESSION = TimeUnit.HOURS.toMillis(12);
     public static final long LONG_SESSION = TimeUnit.HOURS.toMillis(30 * 24);
 
-    public static void loginUser(Integer id, String userId, String openId, String roles, String domain,boolean rememberMe, HttpServletResponse response) {
-        String token = Sessions.createTokenWithUserInfo( id, userId, openId, roles);
+    public static String login(String userId, String roles, String openId, String unionId) {
+        return Sessions.createTokenWithUserInfo(userId,roles, openId, unionId);
+    }
+    public static void loginUser(Integer id, String userId, String roles, String openId,String unionId, String domain,boolean rememberMe, HttpServletResponse response) {
+        String token = Sessions.createTokenWithUserInfo(userId, roles, openId, unionId);
         Sessions.writeToken(token,domain,rememberMe,response);
     }
+    public static void logout(String domain, HttpServletRequest request, HttpServletResponse response) {
+        //EnvConfig.env().get
+        String token = Sessions.getAuthToken(request);
+        Sessions.logout(domain,token,response);
+    }
+    public static void logout(String domain, String token, HttpServletResponse response) {
+        SimpleRedisClient.templateInstance.delete(token);
+        Cookie cookie = new Cookie(AuthConstant.COOKIE_NAME, "");
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        cookie.setDomain(domain);
+        response.addCookie(cookie);
+    }
+
+
 
     public static void writeToken(String token, String domainName,boolean rememberMe, HttpServletResponse response) {
         long duration;
@@ -51,7 +66,7 @@ public class Sessions {
         response.setHeader(AuthConstant.AUTHENTICATION_HEADER, token);
     }
 
-    public static String createTokenWithUserInfo(Integer id, String userId,  String openId, String roles){
+    public static String createTokenWithUserInfo(String userId, String roles, String openId, String unionId){
         Map<String, Object> jwtPayload =  new HashMap<String, Object>();
         jwtPayload.put(AuthConstant.AUTHORIZATION_HEADER,roles);
         String newToken = JwtUtils.createToken(jwtPayload);
@@ -63,7 +78,7 @@ public class Sessions {
             SimpleRedisClient.templateInstance.delete(userId);
             SimpleRedisClient.templateInstance.delete(userInfoOld.getToken());
         }
-        AuthModel userInfo =  AuthModel.builder().token(newToken).userId(userId).openId(openId).id(id).build();
+        AuthModel userInfo =  AuthModel.builder().token(newToken).userId(userId).openId(openId).build();
         SimpleRedisClient.operatorInstance.set(newToken, userInfo,1L, TimeUnit.DAYS);
         SimpleRedisClient.operatorInstance.set(userId, userInfo,1L, TimeUnit.DAYS);
         return newToken;
@@ -95,19 +110,7 @@ public class Sessions {
     }
 
 
-    public static void logout(String domain, HttpServletRequest request, HttpServletResponse response) {
-        //EnvConfig.env().get
-        String token = Sessions.getAuthToken(request);
-        Sessions.logout(domain,token,response);
-    }
-    public static void logout(String domain, String token, HttpServletResponse response) {
-        SimpleRedisClient.templateInstance.delete(token);
-        Cookie cookie = new Cookie(AuthConstant.COOKIE_NAME, "");
-        cookie.setPath("/");
-        cookie.setMaxAge(0);
-        cookie.setDomain(domain);
-        response.addCookie(cookie);
-    }
+
 
     public static void saveSessionUserInfo(String token, Integer id,  String userId, String openId){
         AuthModel userInfo =  AuthModel.builder().token(token).userId(userId).openId(openId).build();
