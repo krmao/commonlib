@@ -54,12 +54,18 @@ public class Sessions {
     public static String createTokenWithUserInfo(Integer id, String userId,  String openId, String roles){
         Map<String, Object> jwtPayload =  new HashMap<String, Object>();
         jwtPayload.put(AuthConstant.AUTHORIZATION_HEADER,roles);
-        String token = JwtUtils.createToken(jwtPayload);
+        String newToken = JwtUtils.createToken(jwtPayload);
         if (null == token){
             throw new ServiceException("failed to create token");
         }
-        AuthModel userInfo =  AuthModel.builder().token(token).userId(userId).openId(openId).id(id).build();
-        SimpleRedisClient.operatorInstance.set(token, userInfo,1L, TimeUnit.DAYS);
+        AuthModel userInfoOld = (AuthModel)SimpleRedisClient.operatorInstance.get(userId);
+        if ((null != userInfoOld) && (StringUtils.isNotBlank(userInfoOld.getToken()))){
+            SimpleRedisClient.templateInstance.delete(userId);
+            SimpleRedisClient.templateInstance.delete(userInfoOld.getToken());
+        }
+        AuthModel userInfo =  AuthModel.builder().token(newToken).userId(userId).openId(openId).id(id).build();
+        SimpleRedisClient.operatorInstance.set(newToken, userInfo,1L, TimeUnit.DAYS);
+        SimpleRedisClient.operatorInstance.set(userId, userInfo,1L, TimeUnit.DAYS);
         return token;
     }
 
