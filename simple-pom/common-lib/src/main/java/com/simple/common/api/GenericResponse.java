@@ -45,4 +45,10 @@ public class GenericResponse extends BaseResponse {
         return ret;
     }
 
+    public static GenericResponse buildSuccess(String message){
+        GenericResponse ret =  GenericResponse.buildSuccess();
+        ret.message(message);
+        return ret;
+    }
+
 }
