@@ -33,5 +33,16 @@ public class GenericResponse extends BaseResponse {
     public static GenericResponse build(){
         return  new GenericResponse();
     }
+    public static GenericResponse buildFailure(String msg){
+        GenericResponse ret = new GenericResponse();
+        ret.code(ResultCode.FAILURE);
+        ret.message(msg);
+        return ret;
+    }
+    public static GenericResponse buildSuccess(){
+        GenericResponse ret = GenericResponse.build();
+        ret.code(ResultCode.SUCCESS);
+        return ret;
+    }
 
 }
