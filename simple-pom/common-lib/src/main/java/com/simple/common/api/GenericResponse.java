@@ -39,6 +39,18 @@ public class GenericResponse extends BaseResponse {
         ret.message(msg);
         return ret;
     }
+    public static GenericResponse error(String msg){
+        GenericResponse ret = GenericResponse.buildFailure(msg);
+        return ret;
+    }
+    public static GenericResponse ok(String msg){
+        GenericResponse ret = GenericResponse.buildSuccess(msg);
+        return ret;
+    }
+    public static GenericResponse ok(){
+        GenericResponse ret = GenericResponse.buildSuccess();
+        return ret;
+    }
     public static GenericResponse buildSuccess(){
         GenericResponse ret = GenericResponse.build();
         ret.code(ResultCode.SUCCESS);

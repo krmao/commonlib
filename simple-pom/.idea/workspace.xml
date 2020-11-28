@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="65a001ba-271e-4203-9e58-22b3b84dc2ff" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common-lib/src/main/java/com/simple/common/api/GenericResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/common-lib/src/main/java/com/simple/common/api/GenericResponse.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,7 +61,7 @@
       <workItem from="1603931753953" duration="271000" />
       <workItem from="1604308810043" duration="754000" />
       <workItem from="1606365532839" duration="766000" />
-      <workItem from="1606551459837" duration="475000" />
+      <workItem from="1606551459837" duration="838000" />
     </task>
     <servers />
   </component>
