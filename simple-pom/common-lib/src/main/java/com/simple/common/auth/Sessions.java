@@ -138,17 +138,17 @@ public class Sessions {
 
         if (StringUtils.isBlank(token)) {
             logger.error("请求参数TokenId不能为空!");
-            throw new ServiceException("未登录，请登录");
+            throw new PermissionDeniedException("未登录，请登录");
             //return BaseResponse.build().code(ResultCode.FAILURE).message("未登录，请登录");
         }
         if (!JwtUtils.verifyToken(token)){
-            throw new ServiceException("Token无效");
+            throw new PermissionDeniedException("Token无效");
         }
         //step2:根据token获取userId
         AuthModel authModel = (AuthModel) SimpleRedisClient.operatorInstance.get(token);
         if (null== authModel){
             logger.error("登录过期，请重新登录");
-            throw new ServiceException("登录过期，请重新登录");
+            throw new PermissionDeniedException("登录过期，请重新登录");
         }
 
         return true;
