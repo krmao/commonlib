@@ -107,4 +107,13 @@ public class JsonUtil {
     public static String returnJsonUnSuccess(String messages) {
         return "{\"status\":0,\"message\":\"" + messages + "\"}";
     }
+
+    public static boolean isJson(String string){
+        try {
+            JSONObject jsonStr= JSONObject.parseObject(string);
+            return  true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
