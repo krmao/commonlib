@@ -51,12 +51,13 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
 
         //用户登录验证
-
+        //处理请求逻辑前进行响应头中的token复制，以防止逻中出现异常，绕过些过滤器的postHandle
         boolean result  = Sessions.validateAuthentication(request);
         if (!result) {
             throw new PermissionDeniedException("请登录！");
         }else{
             String requestToken = request.getHeader("token");
+            response.setHeader("token", requestToken);
             Sessions.refreshToken(requestToken);
         }
 
