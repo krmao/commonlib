@@ -55,6 +55,9 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         boolean result  = Sessions.validateAuthentication(request);
         if (!result) {
             throw new PermissionDeniedException("请登录！");
+        }else{
+            String requestToken = request.getHeader("token");
+            Sessions.refreshToken(requestToken);
         }
 
         if (null != methodAnnotationz) {
@@ -82,22 +85,21 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
     public void postHandle(HttpServletRequest request,
                            HttpServletResponse response, Object obj,
                            ModelAndView modelandview) throws Exception {
-        try {
-
-
-            String responseToken = response.getHeader("token");
-            String requestToken = request.getHeader("token");
-            if (StringUtils.isBlank(responseToken) && StringUtils.isNotBlank(requestToken)) {
-                response.setHeader("token", requestToken);
-                responseToken = requestToken;
-            }
-            if (StringUtils.isNotBlank(responseToken)) {
-                Sessions.refreshToken(responseToken);
-            }
-            //ValidateLoginHelp.refreshToken(responseToken, appType);
-        } catch (Exception ex) {
-            logger.error("请求刷新token失败", ex);
-        }
+//        try {
+//
+//            String responseToken = response.getHeader("token");
+//            String requestToken = request.getHeader("token");
+//            if (StringUtils.isBlank(responseToken) && StringUtils.isNotBlank(requestToken)) {
+//                response.setHeader("token", requestToken);
+//                responseToken = requestToken;
+//            }
+//            if (StringUtils.isNotBlank(responseToken)) {
+//                Sessions.refreshToken(responseToken);
+//            }
+//            //ValidateLoginHelp.refreshToken(responseToken, appType);
+//        } catch (Exception ex) {
+//            logger.error("请求刷新token失败", ex);
+//        }
 
     }
 
