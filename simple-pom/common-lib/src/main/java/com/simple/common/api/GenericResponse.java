@@ -19,6 +19,9 @@ public class GenericResponse extends BaseResponse {
         data.put(key, value);
         return this;
     }
+    protected void setData(JSONObject data){
+        this.data = data;
+    }
     public GenericResponse setDataObject(Object value) {
         String jsonString = JSON.toJSONString(value);
         this.data = this.data.parseObject(jsonString);

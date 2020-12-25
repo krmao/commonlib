@@ -40,6 +40,16 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
+        //处理请求逻辑前进行响应头中的token复制，以防止逻中出现异常，绕过些过滤器的postHandle
+        String requestToken = request.getHeader("token");
+        if(StringUtils.isNotBlank(requestToken)){
+            System.out.println("write token to response start==>" + requestToken);
+            response.setHeader("token", requestToken);
+            Sessions.refreshToken(requestToken);
+            System.out.println("write token to response end==>" + requestToken);
+
+        }
+
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
         //判断在方法上是否有添加需登录注解(若添加则验证,否则相反)
@@ -51,14 +61,10 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
 
         //用户登录验证
-        //处理请求逻辑前进行响应头中的token复制，以防止逻中出现异常，绕过些过滤器的postHandle
+
         boolean result  = Sessions.validateAuthentication(request);
         if (!result) {
             throw new PermissionDeniedException("请登录！");
-        }else{
-            String requestToken = request.getHeader("token");
-            response.setHeader("token", requestToken);
-            Sessions.refreshToken(requestToken);
         }
 
         if (null != methodAnnotationz) {

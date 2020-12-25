@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="65a001ba-271e-4203-9e58-22b3b84dc2ff" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common-lib/src/main/java/com/simple/common/api/GenericResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/common-lib/src/main/java/com/simple/common/api/GenericResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common-lib/src/main/java/com/simple/common/auth/AuthenticationInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/common-lib/src/main/java/com/simple/common/auth/AuthenticationInterceptor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -66,7 +67,8 @@
       <workItem from="1606839726562" duration="329000" />
       <workItem from="1606983494845" duration="1577000" />
       <workItem from="1607079410897" duration="2020000" />
-      <workItem from="1607234965156" duration="190000" />
+      <workItem from="1607234965156" duration="1158000" />
+      <workItem from="1608890121438" duration="199000" />
     </task>
     <servers />
   </component>
