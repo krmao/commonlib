@@ -4,11 +4,12 @@ name: build-iot-new
 
 steps:
   - name: test
-    image: maven:latest
+    image: maven:3-jdk-10
     commands:
       - echo 'testtest'
       - cd  ./simple-pom
-      - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+      - mvn update
+      - mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 trigger:
   branch:
     - master
