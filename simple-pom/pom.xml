@@ -60,12 +60,7 @@
                 <version>1.0.0</version>
             </dependency>
 
-            <!-- Optional JSON formatter -->
-            <dependency>
-                <groupId>structlog4j</groupId>
-                <artifactId>structlog4j-json</artifactId>
-                <version>1.0.0</version>
-            </dependency>
+
 
             <!-- https://mvnrepository.com/artifact/io.sentry/sentry -->
             <dependency>
