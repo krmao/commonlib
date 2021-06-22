@@ -7,7 +7,7 @@ steps:
     image: maven:latest
     commands:
       - echo 'testtest'
-      - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B
+      - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 trigger:
   branch:
     - master
