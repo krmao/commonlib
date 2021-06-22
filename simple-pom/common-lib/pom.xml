@@ -37,14 +37,14 @@
             <groupId>io.sentry</groupId>
             <artifactId>sentry</artifactId>
         </dependency>
-        <dependency>
+       <!-- <dependency>
             <groupId>structlog4j</groupId>
             <artifactId>structlog4j-api</artifactId>
         </dependency>
         <dependency>
             <groupId>structlog4j</groupId>
             <artifactId>structlog4j-json</artifactId>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
