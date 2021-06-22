@@ -1,12 +1,12 @@
 kind: pipeline
-name: build-iot-test
+type: docker
+name: build-iot-new
 
 steps:
   - name: test
-    image: maven:3-jdk-10
+    image: maven:latest
     commands:
       - echo 'testtest'
-      - cd ./service
       - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B
 trigger:
   branch:
