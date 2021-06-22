@@ -192,6 +192,27 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>uk</id>
+            <url>http://uk.maven.org/maven2/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>oschina</id>
+            <url>http://maven.oschina.net/content/groups/public/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>oschina-third</id>
+            <url>http://maven.oschina.net/content/repositories/thirdparty/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
         <!--https://github.com/jacek99/structlog4j-->
         <repository>
             <id>jcenter</id>
