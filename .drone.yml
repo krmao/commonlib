@@ -5,10 +5,18 @@ name: build-iot-new
 steps:
   - name: test
     image: maven:3-jdk-10
+    volumes:
+      - name: mvncache
+        path: ~/.m2
     commands:
       - echo 'testtest'
       - cd  ./simple-pom
       - mvn -U clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+volumes:
+  - name: mvncache
+    host:
+      path: /var/lib/cache/.m2
+
 trigger:
   branch:
     - master
