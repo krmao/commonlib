@@ -6,8 +6,7 @@ steps:
   - name: test
     image: maven:3-jdk-10
     volumes:
-      - name: mvncache
-        path: ~/.m2
+      - /home/docker/maven/m2:/root/.m2
     commands:
       - echo 'testtest'
       - cd  ./simple-pom
