@@ -1,13 +1,15 @@
-
 kind: pipeline
-name: default-name
+type: docker
+name: build-iot-new
+
 steps:
-  - name: build
-    image: golang
+  - name: test
+    image: maven:latest
     commands:
-    - go build
-    - go test
-    when:
-      branch:
-      - master
-        - feature/*
+      - echo 'testtest'
+      - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B
+trigger:
+  branch:
+    - master
+  event:
+    - push
