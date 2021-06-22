@@ -8,8 +8,7 @@ steps:
     commands:
       - echo 'testtest'
       - cd  ./simple-pom
-      - mvn update
-      - mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+      - mvn -U clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 trigger:
   branch:
     - master
