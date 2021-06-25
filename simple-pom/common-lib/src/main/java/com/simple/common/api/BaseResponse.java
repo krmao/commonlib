@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BaseResponse {
+    private ResponseStatus status = new ResponseStatus();
     public static BaseResponse buildFailure(String msg){
         BaseResponse ret = new BaseResponse();
         return ret.code(ResultCode.FAILURE).message(msg);
@@ -21,12 +22,11 @@ public class BaseResponse {
     public static BaseResponse build(){
         return new BaseResponse();
     }
-    private ResponseStatus status = new ResponseStatus();
+
     public BaseResponse code(ResultCode code){
         this.status.setCode(code);
         return this;
     }
-
     @JSONField(serialize = false)
     public boolean success(){
         return (this.status.getCode().equals(ResultCode.SUCCESS));

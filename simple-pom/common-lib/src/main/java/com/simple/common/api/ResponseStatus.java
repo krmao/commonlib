@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class ResponseStatus {
-    public String trace_id = "";
+    public String trace_id = "0";
     private ResultCode code = ResultCode.SUCCESS;
     private String message = "SUCCESS";
 }
