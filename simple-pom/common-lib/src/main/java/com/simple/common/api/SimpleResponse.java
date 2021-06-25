@@ -30,3 +30,4 @@ public class SimpleResponse<T> extends BaseResponse {
     }
 
 }
+
