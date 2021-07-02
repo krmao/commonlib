@@ -87,7 +87,7 @@ public class Sessions {
         }
         AuthModel userInfo =  AuthModel.builder().token(newToken).userId(userId).openId(openId).build();
         SimpleRedisClient.operatorInstance.set(newToken, userInfo,1L, TimeUnit.DAYS);
-        SimpleRedisClient.operatorInstance.set(userId, userInfo,1L, TimeUnit.DAYS);
+        SimpleRedisClient.operatorInstance.set(userId, userInfo,0L, TimeUnit.DAYS);
         return newToken;
     }
 
@@ -126,6 +126,11 @@ public class Sessions {
     public static AuthModel getSessionUserInfo(String token){
         AuthModel userInfo = (AuthModel) SimpleRedisClient.operatorInstance.get(token);
         return userInfo;
+    }
+    public static AuthModel getSessionUserStatusByUserId(String userId){
+        AuthModel userStatus = (AuthModel) SimpleRedisClient.operatorInstance.get(userId);
+        return userStatus;
+
     }
 
     public static boolean validateAuthentication(HttpServletRequest request ) {
