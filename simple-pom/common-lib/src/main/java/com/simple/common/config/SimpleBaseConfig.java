@@ -5,6 +5,7 @@ import com.github.structlog4j.json.JsonFormatter;
 import com.simple.common.auth.AuthenticationInterceptor;
 import com.simple.common.auth.AuthorizeInterceptor;
 import com.simple.common.auth.FeignRequestHeaderInterceptor;
+import com.simple.common.auth.SessionUserResolver;
 import feign.RequestInterceptor;
 import io.sentry.Sentry;
 import io.sentry.SentryClient;
@@ -14,12 +15,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.simple.common.env.EnvConfig;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.util.List;
 
 @Configuration
 @EnableConfigurationProperties(SimpleProps.class)
@@ -33,6 +36,7 @@ public class SimpleBaseConfig implements WebMvcConfigurer {
 
     @Autowired
     SimpleProps simpleProps;
+
 
     @Bean
     public ModelMapper modelMapper() {
@@ -65,6 +69,12 @@ public class SimpleBaseConfig implements WebMvcConfigurer {
     @Bean
     public RequestInterceptor feignRequestInterceptor() {
         return new FeignRequestHeaderInterceptor();
+    }
+
+    //添加自定义的拦截器
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add(new SessionUserResolver());
     }
 
     @PostConstruct

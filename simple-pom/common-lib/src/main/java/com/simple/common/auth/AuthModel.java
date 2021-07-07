@@ -13,8 +13,7 @@ import java.io.Serializable;
 @Builder
 public class AuthModel implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String token;
-    private String userId;
-    private Integer id;
-    private String openId;
+    private String  token;
+    private String  userId;
+    private String  openId;
 }

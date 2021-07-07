@@ -14,6 +14,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin File" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -62,6 +63,19 @@
       <recent name="$PROJECT_DIR$/src/main/java/com/simple/common/auth" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
@@ -81,7 +95,7 @@
       <workItem from="1602741273231" duration="10780000" />
       <workItem from="1602755905674" duration="16021000" />
       <workItem from="1624590963309" duration="8408000" />
-      <workItem from="1624935991568" duration="6714000" />
+      <workItem from="1624935991568" duration="12332000" />
     </task>
     <servers />
   </component>
