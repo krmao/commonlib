@@ -20,8 +20,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class SimpleRedisClient {
     public static ValueOperations<String, Object> operatorInstance;
     public static RedisTemplate<String, Object> templateInstance;
-    public static RedisTemplate<String, String> templateStringInstance;
-    public static RedisMessageListenerContainer messageListenerContainer;
 
     @Bean
     RedisTemplate<String, Integer> intRedisTemplate(RedisConnectionFactory connectionFactory) {
@@ -29,13 +27,7 @@ public class SimpleRedisClient {
         redisTemplate.setConnectionFactory(connectionFactory);
         return redisTemplate;
     }
-    @Bean
-    RedisTemplate<String, String> stringRedisTemplate(RedisConnectionFactory connectionFactory) {
-        RedisTemplate<String, String> redisTemplate = new RedisTemplate<String, String>();
-        redisTemplate.setConnectionFactory(connectionFactory);
-        SimpleRedisClient.templateStringInstance = redisTemplate;
-        return redisTemplate;
-    }
+
 
     @Bean
     ValueOperations<String, Integer> intOperations(RedisTemplate<String, Integer> redisTemplate) {
@@ -81,8 +73,7 @@ public class SimpleRedisClient {
     public RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory) {
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
-        //container.addMessageListener(listenerAdapter, new PatternTopic("DefaultChannel"));
-        SimpleRedisClient.messageListenerContainer = container;
+        System.out.println("create redis container!!!");
         return container;
     }
 
