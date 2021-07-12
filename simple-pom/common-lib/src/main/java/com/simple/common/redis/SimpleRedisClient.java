@@ -21,18 +21,6 @@ public class SimpleRedisClient {
     public static ValueOperations<String, Object> operatorInstance;
     public static RedisTemplate<String, Object> templateInstance;
 
-    @Bean
-    RedisTemplate<String, Integer> intRedisTemplate(RedisConnectionFactory connectionFactory) {
-        RedisTemplate<String, Integer> redisTemplate = new RedisTemplate<String, Integer>();
-        redisTemplate.setConnectionFactory(connectionFactory);
-        return redisTemplate;
-    }
-
-
-    @Bean
-    ValueOperations<String, Integer> intOperations(RedisTemplate<String, Integer> redisTemplate) {
-        return redisTemplate.opsForValue();
-    }
 
     @Bean
     Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer(ObjectMapper objectMapper) {
@@ -73,7 +61,6 @@ public class SimpleRedisClient {
     public RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory) {
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
-        System.out.println("create redis container!!!");
         return container;
     }
 
