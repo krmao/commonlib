@@ -47,14 +47,6 @@
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="com.simple.common" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.simple.common.controller" />
-      <recent name="com.simple.common.error" />
-      <recent name="com.simple.common.auth" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main" />
       <recent name="$PROJECT_DIR$/src/main/java/com/simple/common/auth/token" />
@@ -62,15 +54,26 @@
       <recent name="$PROJECT_DIR$/src/main/java/com/simple/common" />
       <recent name="$PROJECT_DIR$/src/main/java/com/simple/common/auth" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.simple.common" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.simple.common.redis" />
+      <recent name="com.simple.common.controller" />
+      <recent name="com.simple.common.error" />
+      <recent name="com.simple.common.auth" />
+    </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -95,7 +98,8 @@
       <workItem from="1602741273231" duration="10780000" />
       <workItem from="1602755905674" duration="16021000" />
       <workItem from="1624590963309" duration="8408000" />
-      <workItem from="1624935991568" duration="12332000" />
+      <workItem from="1624935991568" duration="17002000" />
+      <workItem from="1625981798813" duration="3132000" />
     </task>
     <servers />
   </component>

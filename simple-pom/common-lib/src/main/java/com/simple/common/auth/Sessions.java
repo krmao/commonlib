@@ -80,14 +80,21 @@ public class Sessions {
         if (null == newToken){
             throw new ServiceException("failed to create token");
         }
-        AuthModel userInfoOld = (AuthModel)SimpleRedisClient.operatorInstance.get(userId);
-        if ((null != userInfoOld) && (StringUtils.isNotBlank(userInfoOld.getToken()))){
-            SimpleRedisClient.templateInstance.delete(userId);
-            SimpleRedisClient.templateInstance.delete(userInfoOld.getToken());
+        try {
+
+
+            AuthModel userInfoOld = (AuthModel) SimpleRedisClient.operatorInstance.get(userId);
+            if ((null != userInfoOld) && (StringUtils.isNotBlank(userInfoOld.getToken()))) {
+                SimpleRedisClient.templateInstance.delete(userId);
+                SimpleRedisClient.templateInstance.delete(userInfoOld.getToken());
+            }
+            AuthModel userInfo = AuthModel.builder().token(newToken).userId(userId).openId(openId).build();
+            SimpleRedisClient.operatorInstance.set(newToken, userInfo, 1L, TimeUnit.DAYS);
+            SimpleRedisClient.operatorInstance.set(userId, userInfo, 1L, TimeUnit.DAYS);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new ServiceException("failed to create token from cache");
         }
-        AuthModel userInfo =  AuthModel.builder().token(newToken).userId(userId).openId(openId).build();
-        SimpleRedisClient.operatorInstance.set(newToken, userInfo,1L, TimeUnit.DAYS);
-        SimpleRedisClient.operatorInstance.set(userId, userInfo,1L, TimeUnit.DAYS);
         return newToken;
     }
 
