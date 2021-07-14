@@ -41,23 +41,24 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/simple/common/redis" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/com/simple/common/redis" />
       <recent name="$PROJECT_DIR$/src/main" />
       <recent name="$PROJECT_DIR$/src/main/java/com/simple/common/auth/token" />
       <recent name="$PROJECT_DIR$/src/main/java/com/simple/common/token" />
       <recent name="$PROJECT_DIR$/src/main/java/com/simple/common" />
-      <recent name="$PROJECT_DIR$/src/main/java/com/simple/common/auth" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.simple.common" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.simple.common.config" />
       <recent name="com.simple.common.redis" />
       <recent name="com.simple.common.controller" />
       <recent name="com.simple.common.error" />
@@ -65,15 +66,13 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -99,39 +98,13 @@
       <workItem from="1602755905674" duration="16021000" />
       <workItem from="1624590963309" duration="8408000" />
       <workItem from="1624935991568" duration="17002000" />
-      <workItem from="1625981798813" duration="7234000" />
+      <workItem from="1625981798813" duration="15822000" />
+      <workItem from="1626156834434" duration="14756000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="569" y="357" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1602755962106">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="569" y="357" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1440.900/-1920.-108.1920.1200@0.0.1440.900" timestamp="1602755962106" />
-    <state x="270" y="382" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1602672501142">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="270" y="382" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1440.900/-1920.-108.1920.1200@0.0.1440.900" timestamp="1602672501142" />
-    <state x="486" y="337" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1602672502782">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="486" y="337" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1440.900/-1920.-108.1920.1200@0.0.1440.900" timestamp="1602672502782" />
-    <state x="417" y="330" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1602673167906">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="417" y="330" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1440.900/-1920.-108.1920.1200@0.0.1440.900" timestamp="1602673167906" />
-    <state x="258" y="112" key="Maven.ArtifactSearchDialog" timestamp="1602741082627">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="258" y="112" key="Maven.ArtifactSearchDialog/0.0.1440.900/-1920.-108.1920.1200@0.0.1440.900" timestamp="1602741082627" />
-    <state x="378" y="207" width="683" height="486" key="find.popup" timestamp="1603281227650">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="378" y="207" width="683" height="486" key="find.popup/0.0.1440.900/-1920.-108.1920.1200@0.0.1440.900" timestamp="1603281227650" />
-    <state x="378" y="207" width="683" height="486" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1601974188300" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

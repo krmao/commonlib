@@ -3,6 +3,8 @@ package com.simple.common.redis;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.simple.common.auth.Sessions;
+import io.lettuce.core.RedisClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -20,8 +22,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class SimpleRedisClient {
     public static ValueOperations<String, Object> operatorInstance;
     public static RedisTemplate<String, Object> templateInstance;
-
-
     @Bean
     Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer(ObjectMapper objectMapper) {
         Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<Object>(
@@ -62,6 +62,18 @@ public class SimpleRedisClient {
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         return container;
+    }
+
+    @Bean
+    public RedisCacheClient redisCacheClient(RedisTemplate<String,Object> template) {
+        RedisCacheClient client = new RedisCacheClient(template);
+        Sessions.setCacheClient(client);
+        return client;
+    }
+    @Bean
+    public RedisMessageQueueClient redisMessageQueueClient(RedisMessageListenerContainer listenerContainer,RedisTemplate<String,Object> template) {
+        RedisMessageQueueClient client = new RedisMessageQueueClient(listenerContainer,template);
+        return client;
     }
 
 }

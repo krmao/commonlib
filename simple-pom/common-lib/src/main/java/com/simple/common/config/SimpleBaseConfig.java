@@ -6,6 +6,9 @@ import com.simple.common.auth.AuthenticationInterceptor;
 import com.simple.common.auth.AuthorizeInterceptor;
 import com.simple.common.auth.FeignRequestHeaderInterceptor;
 import com.simple.common.auth.SessionUserResolver;
+import com.simple.common.redis.MessageQueueProvider;
+import com.simple.common.redis.MessageQueueProxy;
+import com.simple.common.redis.RedisMessageQueueClient;
 import feign.RequestInterceptor;
 import io.sentry.Sentry;
 import io.sentry.SentryClient;
@@ -65,6 +68,8 @@ public class SimpleBaseConfig implements WebMvcConfigurer {
         registry.addInterceptor(new AuthorizeInterceptor());
 
     }
+
+
 
     @Bean
     public RequestInterceptor feignRequestInterceptor() {
