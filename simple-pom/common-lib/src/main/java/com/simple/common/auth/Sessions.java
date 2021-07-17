@@ -135,7 +135,12 @@ public class Sessions {
         SimpleRedisClient.operatorInstance.set(token, userInfo,1L, TimeUnit.DAYS);
     }
     public static AuthModel getSessionUserInfo(String token){
-        AuthModel userInfo = (AuthModel) SimpleRedisClient.operatorInstance.get(token);
+        AuthModel userInfo= null;
+        try{
+            userInfo = (AuthModel) SimpleRedisClient.operatorInstance.get(token);
+        }catch (Exception e){
+            userInfo = null;
+        }
         return userInfo;
     }
     public static AuthModel getSessionUserInfo(HttpServletRequest request){
