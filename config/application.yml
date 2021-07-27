@@ -1,6 +1,7 @@
 # store your development credentials for spring app here
 # this file should and will not be checked into version control
 
+
 spring:
   profiles:
     active: dev
