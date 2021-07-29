@@ -1,7 +1,7 @@
 package com.simple.common.auth;
 
 import com.simple.common.error.ServiceException;
-import com.simple.common.redis.RedisCacheClient;
+import com.simple.common.redis.CacheClient;
 import com.simple.common.token.JwtUtils;
 import com.simple.common.redis.SimpleRedisClient;
 import org.apache.commons.lang.StringUtils;
@@ -24,8 +24,8 @@ public class Sessions {
     private static final Logger logger = LoggerFactory.getLogger(Sessions.class);
     public static final long SHORT_SESSION = TimeUnit.HOURS.toMillis(12);
     public static final long LONG_SESSION = TimeUnit.HOURS.toMillis(30 * 24);
-    private static RedisCacheClient cacheClient;
-    public static void setCacheClient(RedisCacheClient client){
+    private static CacheClient cacheClient;
+    public static void setCacheClient(CacheClient client){
         Sessions.cacheClient  = client;
     }
     public static String login(String userId, String roles, String openId, String unionId) {

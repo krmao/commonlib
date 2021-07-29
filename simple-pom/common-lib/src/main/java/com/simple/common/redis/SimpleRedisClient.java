@@ -65,8 +65,8 @@ public class SimpleRedisClient {
     }
 
     @Bean
-    public RedisCacheClient redisCacheClient(RedisTemplate<String,Object> template) {
-        RedisCacheClient client = new RedisCacheClient(template);
+    public CacheClient redisCacheClient(RedisTemplate<String,Object> template) {
+        CacheClient client = new CacheClient(template);
         Sessions.setCacheClient(client);
         return client;
     }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.TimeUnit;
 
 @RequiredArgsConstructor
-public class RedisCacheClient {
+public class CacheClient {
     private final RedisTemplate<String, Object> redisTemplate;
     public RedisTemplate<String, Object> getTemplate(){
         return this.redisTemplate;
