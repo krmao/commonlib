@@ -141,16 +141,24 @@ public class Sessions {
         }catch (Exception e){
             userInfo = null;
         }
+        if(null == userInfo){
+            userInfo = AuthModel.builder().build();
+        }
         return userInfo;
     }
     public static AuthModel getSessionUserInfo(HttpServletRequest request){
-        String token = Sessions.getAuthToken(request);
-        AuthModel userInfo = (AuthModel) SimpleRedisClient.operatorInstance.get(token);
-        if (null == userInfo){
+        try{
+            String token = Sessions.getAuthToken(request);
+            AuthModel userInfo = (AuthModel) SimpleRedisClient.operatorInstance.get(token);
+            if (null == userInfo){
+                return AuthModel.builder().build();
+            }else{
+                return userInfo;
+            }
+        }catch (Exception e){
             return AuthModel.builder().build();
-        }else{
-            return userInfo;
         }
+
     }
     public static String getSessionUserId(HttpServletRequest request){
 
