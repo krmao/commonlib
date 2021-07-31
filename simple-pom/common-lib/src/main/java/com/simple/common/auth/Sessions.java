@@ -146,7 +146,11 @@ public class Sessions {
     public static AuthModel getSessionUserInfo(HttpServletRequest request){
         String token = Sessions.getAuthToken(request);
         AuthModel userInfo = (AuthModel) SimpleRedisClient.operatorInstance.get(token);
-        return userInfo;
+        if (null == userInfo){
+            return AuthModel.builder().build();
+        }else{
+            return userInfo;
+        }
     }
     public static String getSessionUserId(HttpServletRequest request){
 
