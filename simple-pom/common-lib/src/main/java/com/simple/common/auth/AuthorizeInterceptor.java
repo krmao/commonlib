@@ -15,25 +15,27 @@ public class AuthorizeInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
-        Authorize authorize = handlerMethod.getMethod().getAnnotation(Authorize.class);
-        if (authorize == null) {
-            return true; // no need to authorize
-        }
+        return Sessions.checkPermissions(request);
 
-        String[] allowedHeaders = authorize.value();
-        String authzHeader = request.getHeader(AuthConstant.AUTHORIZATION_HEADER);
-        //System.out.println("get the roles from toke is*************" +  authzHeader);
-        String authHeader = Sessions.getAuthorizationHeader(request);
-
-        if (StringUtils.isEmpty(authHeader)) {
-            throw new PermissionDeniedException(AuthConstant.ERROR_MSG_MISSING_AUTH_HEADER);
-        }
-
-        if (!Arrays.asList(allowedHeaders).contains(authHeader)) {
-            throw new PermissionDeniedException(AuthConstant.ERROR_MSG_DO_NOT_HAVE_ACCESS);
-        }
-
-        return true;
+//        HandlerMethod handlerMethod = (HandlerMethod) handler;
+//        Authorize authorize = handlerMethod.getMethod().getAnnotation(Authorize.class);
+//        if (authorize == null) {
+//            return true; // no need to authorize
+//        }
+//
+//        String[] allowedHeaders = authorize.value();
+//        String authzHeader = request.getHeader(AuthConstant.AUTHORIZATION_HEADER);
+//        //System.out.println("get the roles from toke is*************" +  authzHeader);
+//        String authHeader = Sessions.getAuthorizationHeader(request);
+//
+//        if (StringUtils.isEmpty(authHeader)) {
+//            throw new PermissionDeniedException(AuthConstant.ERROR_MSG_MISSING_AUTH_HEADER);
+//        }
+//
+//        if (!Arrays.asList(allowedHeaders).contains(authHeader)) {
+//            throw new PermissionDeniedException(AuthConstant.ERROR_MSG_DO_NOT_HAVE_ACCESS);
+//        }
+//
+//        return true;
     }
 }

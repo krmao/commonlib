@@ -147,17 +147,8 @@ public class Sessions {
         return userInfo;
     }
     public static AuthModel getSessionUserInfo(HttpServletRequest request){
-        try{
-            String token = Sessions.getAuthToken(request);
-            AuthModel userInfo = (AuthModel) SimpleRedisClient.operatorInstance.get(token);
-            if (null == userInfo){
-                return AuthModel.builder().build();
-            }else{
-                return userInfo;
-            }
-        }catch (Exception e){
-            return AuthModel.builder().build();
-        }
+        String token = Sessions.getAuthToken(request);
+        return Sessions.getSessionUserInfo(token);
 
     }
     public static String getSessionUserId(HttpServletRequest request){
@@ -247,7 +238,6 @@ public class Sessions {
         AuthModel authModel = Sessions.getSessionUserInfo(token);
         String rolesString = authModel.getRoles();
         String[] roles = StringUtils.split(rolesString, ",");
-
 
         String allKey = Sessions.FORBID_FORMAT_STRING; //"forbid:permission:all";
         String hashKey = String.format(Sessions.PERMISSION_FORMAT_STRING, method, uri); //String.format("%s:%s", method, uri);
