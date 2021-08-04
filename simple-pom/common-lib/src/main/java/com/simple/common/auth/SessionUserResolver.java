@@ -2,7 +2,7 @@ package com.simple.common.auth;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.core.MethodParameter;
-import org.springframework.stereotype.Component;
+
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -37,7 +37,9 @@ public class SessionUserResolver implements HandlerMethodArgumentResolver {
             } else {
                 user.setLoginUser(true);
             }
+
             AuthModel model = Sessions.getSessionUserInfo(token);
+
             if ((null == model) || (StringUtils.isBlank(model.getUserId()))){
                 user.setLoginUser(false);
             }else{

@@ -1,12 +1,11 @@
 package com.simple.common.auth;
 
-import com.simple.common.error.ServiceException;
-import com.simple.common.redis.CacheClient;
-import com.simple.common.token.JwtUtils;
 import com.simple.common.redis.SimpleRedisClient;
+import com.simple.common.token.JwtUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -20,14 +19,15 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class Sessions {
+    public static final String PERMISSION_FORMAT_STRING ="%s:%s";
+    public static final String FORBID_FORMAT_STRING ="forbid:permission:all";
+    public static final String PERMIT_ROLE_FORMAT_STRING ="permit:permission:role:%s";
+    public static final String PERMIT_USER_FORMAT_STRING ="permit:permission:user:%s";
     public static final String DEFAULT_ROLE = "guest";
     private static final Logger logger = LoggerFactory.getLogger(Sessions.class);
     public static final long SHORT_SESSION = TimeUnit.HOURS.toMillis(12);
     public static final long LONG_SESSION = TimeUnit.HOURS.toMillis(30 * 24);
-    private static CacheClient cacheClient;
-    public static void setCacheClient(CacheClient client){
-        Sessions.cacheClient  = client;
-    }
+
     public static String login(String userId, String roles, String openId, String unionId) {
         return Sessions.createTokenWithUserInfo(userId,roles, openId, unionId);
     }
@@ -82,7 +82,7 @@ public class Sessions {
         jwtPayload.put(AuthConstant.AUTHORIZATION_HEADER,roles);
         String newToken = JwtUtils.createToken(jwtPayload);
         if (null == newToken){
-            throw new ServiceException("failed to create token");
+            return null;
         }
         try {
 
@@ -92,12 +92,12 @@ public class Sessions {
                 SimpleRedisClient.templateInstance.delete(userId);
                 SimpleRedisClient.templateInstance.delete(userInfoOld.getToken());
             }
-            AuthModel userInfo = AuthModel.builder().token(newToken).userId(userId).openId(openId).build();
+            AuthModel userInfo = AuthModel.builder().token(newToken).userId(userId).openId(openId).roles(roles).build();
             SimpleRedisClient.operatorInstance.set(newToken, userInfo, 1L, TimeUnit.DAYS);
             SimpleRedisClient.operatorInstance.set(userId, userInfo, 1L, TimeUnit.DAYS);
         }catch (Exception e){
             e.printStackTrace();
-            throw new ServiceException("failed to create token from cache");
+           return  null;
         }
         return newToken;
     }
@@ -226,5 +226,50 @@ public class Sessions {
         return null;
     }
 
+    public static void setForbidPermission(HashMap<String,Object> permissions){
+        String allKey = Sessions.FORBID_FORMAT_STRING;
+        Sessions.setPermissionList(allKey,permissions);
+    }
+    public static void setRolePermission(String role, HashMap<String,Object> permissions){
+        String roleKey = String.format(Sessions.PERMIT_ROLE_FORMAT_STRING,role);
+        Sessions.setPermissionList(roleKey,permissions);
+    }
+    public static void setUserPermission(String user, HashMap<String,Object> permissions){
+        String roleKey = String.format(Sessions.PERMIT_USER_FORMAT_STRING,user);
+        Sessions.setPermissionList(roleKey,permissions);
+    }
+    public static void setPermissionList(String key, HashMap<String,Object> permissions){
+        HashOperations<String, String, Object> hashOperations = SimpleRedisClient.templateInstance.opsForHash();
+        hashOperations.putAll(key,permissions);
+    }
+    public static boolean checkPermissions(String token,String uri, String method) {
+        boolean hasPermission = false;
+        AuthModel authModel = Sessions.getSessionUserInfo(token);
+        String rolesString = authModel.getRoles();
+        String[] roles = StringUtils.split(rolesString, ",");
 
+
+        String allKey = Sessions.FORBID_FORMAT_STRING; //"forbid:permission:all";
+        String hashKey = String.format(Sessions.PERMISSION_FORMAT_STRING, method, uri); //String.format("%s:%s", method, uri);
+        if (SimpleRedisClient.templateInstance.opsForHash().hasKey(allKey,hashKey)){
+           for (int i=0; i < roles.length; i++){
+             String role = roles[i];
+             String key = String.format(Sessions.PERMIT_ROLE_FORMAT_STRING,role); //String.format("permit:permission:%s",role);
+             if (SimpleRedisClient.templateInstance.opsForHash().hasKey(key,hashKey)){
+                 hasPermission = true;
+                 break;
+             }
+           }
+        }else{
+            hasPermission =  true;
+        }
+        return hasPermission;
+    }
+
+    public static boolean checkPermissions(HttpServletRequest request) {
+        String token = Sessions.getAuthToken(request);
+        String uri = request.getRequestURI();
+        String method = request.getMethod();
+        return Sessions.checkPermissions(token,uri,method);
+    }
 }

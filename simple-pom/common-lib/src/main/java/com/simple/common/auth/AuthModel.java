@@ -11,10 +11,10 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @Builder
-public class AuthModel implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class AuthModel  {
     private String  token;
     private String  userId;
     private Integer id;
     private String  openId;
+    private String  roles;
 }

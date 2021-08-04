@@ -3,20 +3,18 @@ package com.simple.common.redis;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.simple.common.auth.Sessions;
-import io.lettuce.core.RedisClient;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.data.redis.listener.PatternTopic;
+
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
-import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
+
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-//import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 
 @Configuration
 public class SimpleRedisClient {
@@ -67,7 +65,6 @@ public class SimpleRedisClient {
     @Bean
     public CacheClient redisCacheClient(RedisTemplate<String,Object> template) {
         CacheClient client = new CacheClient(template);
-        Sessions.setCacheClient(client);
         return client;
     }
     @Bean
