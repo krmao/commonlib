@@ -15,7 +15,12 @@ public class AuthorizeInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
-        return Sessions.checkPermissions(request);
+         if(Sessions.checkPermissions(request)){
+             return true;
+         }else{
+             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+             return false;
+         }
 
 //        HandlerMethod handlerMethod = (HandlerMethod) handler;
 //        Authorize authorize = handlerMethod.getMethod().getAnnotation(Authorize.class);
