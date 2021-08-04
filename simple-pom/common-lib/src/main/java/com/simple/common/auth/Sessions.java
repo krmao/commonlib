@@ -217,15 +217,21 @@ public class Sessions {
         return null;
     }
 
-    public static void setForbidPermission(HashMap<String,Object> permissions){
+    public static void setForbidPermissions(HashMap<String,Object> permissions){
         String allKey = Sessions.FORBID_FORMAT_STRING;
         Sessions.setPermissionList(allKey,permissions);
     }
-    public static void setRolePermission(String role, HashMap<String,Object> permissions){
+    public static void setRolePermissions(String role, HashMap<String,Object> permissions){
         String roleKey = String.format(Sessions.PERMIT_ROLE_FORMAT_STRING,role);
         Sessions.setPermissionList(roleKey,permissions);
     }
-    public static void setUserPermission(String user, HashMap<String,Object> permissions){
+    public static void setRolePermission(String role, String uri, String method, String roleName){
+        String hashKey = String.format(Sessions.PERMISSION_FORMAT_STRING, uri, method);
+        String roleKey = String.format(Sessions.PERMIT_ROLE_FORMAT_STRING,role);
+        HashOperations<String, String, Object> hashOperations = SimpleRedisClient.templateInstance.opsForHash();
+        hashOperations.putIfAbsent(roleKey,hashKey,roleName);
+    }
+    public static void setUserPermissions(String user, HashMap<String,Object> permissions){
         String roleKey = String.format(Sessions.PERMIT_USER_FORMAT_STRING,user);
         Sessions.setPermissionList(roleKey,permissions);
     }
@@ -240,7 +246,7 @@ public class Sessions {
         String[] roles = StringUtils.split(rolesString, ",");
 
         String allKey = Sessions.FORBID_FORMAT_STRING; //"forbid:permission:all";
-        String hashKey = String.format(Sessions.PERMISSION_FORMAT_STRING, method, uri); //String.format("%s:%s", method, uri);
+        String hashKey = String.format(Sessions.PERMISSION_FORMAT_STRING, uri, method); //String.format("%s:%s", method, uri);
         if (SimpleRedisClient.templateInstance.opsForHash().hasKey(allKey,hashKey)){
            for (int i=0; i < roles.length; i++){
              String role = roles[i];
