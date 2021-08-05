@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class AuthModel  {
     private String  token;
     private String  userId;
-    private Integer id;
+    //private Integer id;
     private String  openId;
     private String  roles;
 }

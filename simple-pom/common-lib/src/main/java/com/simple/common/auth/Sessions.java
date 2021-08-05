@@ -88,9 +88,9 @@ public class Sessions {
         }
         try {
 
-
             AuthModel userInfoOld = (AuthModel) SimpleRedisClient.operatorInstance.get(userId);
             if ((null != userInfoOld) && (StringUtils.isNotBlank(userInfoOld.getToken()))) {
+                System.out.println("remove info from redis, info===>" + userInfoOld.toString());
                 SimpleRedisClient.templateInstance.delete(userId);
                 SimpleRedisClient.templateInstance.delete(userInfoOld.getToken());
             }
@@ -128,7 +128,6 @@ public class Sessions {
         String roles =  JwtUtils.decodeToken(token);
         return roles;
     }
-
 
 
 
@@ -193,12 +192,16 @@ public class Sessions {
 
     public static boolean refreshToken(String token) {
         int expTimeSeconds = 60 * 60 * 24 * 3;
+        System.out.println("refresh token");
         if (StringUtils.isBlank(token)){
             return false;
         }
         AuthModel authModel = (AuthModel) SimpleRedisClient.operatorInstance.get(token);
-        SimpleRedisClient.operatorInstance.set(token, authModel, 1L, TimeUnit.DAYS);
-        SimpleRedisClient.operatorInstance.set(authModel.getUserId(), authModel, 1L, TimeUnit.DAYS);
+        SimpleRedisClient.templateInstance.expire(token,1L, TimeUnit.DAYS);
+        SimpleRedisClient.templateInstance.expire(authModel.getUserId(),1L, TimeUnit.DAYS);
+        //SimpleRedisClient.operatorInstance.set(token, authModel, 1L, TimeUnit.DAYS);
+        //SimpleRedisClient.operatorInstance.set(authModel.getUserId(), authModel, 1L, TimeUnit.DAYS);
+
         return true;
     }
 
