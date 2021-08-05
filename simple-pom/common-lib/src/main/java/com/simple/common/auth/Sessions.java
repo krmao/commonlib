@@ -221,15 +221,22 @@ public class Sessions {
         String allKey = Sessions.FORBID_FORMAT_STRING;
         Sessions.setPermissionList(allKey,permissions);
     }
+    public static void setForbidPermission(String uri, String method){
+        String allKey = Sessions.FORBID_FORMAT_STRING;
+        String hashKey = String.format(Sessions.PERMISSION_FORMAT_STRING, uri, method);
+        HashOperations<String, String, Object> hashOperations = SimpleRedisClient.templateInstance.opsForHash();
+        hashOperations.putIfAbsent(allKey,hashKey,"all-forbid");
+
+    }
     public static void setRolePermissions(String role, HashMap<String,Object> permissions){
         String roleKey = String.format(Sessions.PERMIT_ROLE_FORMAT_STRING,role);
         Sessions.setPermissionList(roleKey,permissions);
     }
-    public static void setRolePermission(String role, String uri, String method, String roleName){
-        String hashKey = String.format(Sessions.PERMISSION_FORMAT_STRING, uri, method);
+    public static void setRolePermission(String role, String uri, String method, Object value){
+        String hashKey = String.format(Sessions.PERMISSION_FORMAT_STRING, uri, method.toUpperCase());
         String roleKey = String.format(Sessions.PERMIT_ROLE_FORMAT_STRING,role);
         HashOperations<String, String, Object> hashOperations = SimpleRedisClient.templateInstance.opsForHash();
-        hashOperations.putIfAbsent(roleKey,hashKey,roleName);
+        hashOperations.putIfAbsent(roleKey,hashKey,value);
     }
     public static void setUserPermissions(String user, HashMap<String,Object> permissions){
         String roleKey = String.format(Sessions.PERMIT_USER_FORMAT_STRING,user);
@@ -246,7 +253,7 @@ public class Sessions {
         String[] roles = StringUtils.split(rolesString, ",");
 
         String allKey = Sessions.FORBID_FORMAT_STRING; //"forbid:permission:all";
-        String hashKey = String.format(Sessions.PERMISSION_FORMAT_STRING, uri, method); //String.format("%s:%s", method, uri);
+        String hashKey = String.format(Sessions.PERMISSION_FORMAT_STRING, uri, method.toUpperCase()); //String.format("%s:%s", method, uri);
         if (SimpleRedisClient.templateInstance.opsForHash().hasKey(allKey,hashKey)){
            for (int i=0; i < roles.length; i++){
              String role = roles[i];
