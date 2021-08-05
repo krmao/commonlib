@@ -20,7 +20,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Sessions {
     public static final String PERMISSION_FORMAT_STRING ="%s:%s";
+    public static final String WHITE_LIST_PERMISSION_STRING ="all:all";
     public static final String FORBID_FORMAT_STRING ="forbid:permission:all";
+    public static final String WHITE_LIST_FORMAT_STRING ="whitelist:permission:role:%s";
     public static final String PERMIT_ROLE_FORMAT_STRING ="permit:permission:role:%s";
     public static final String PERMIT_USER_FORMAT_STRING ="permit:permission:user:%s";
     public static final String DEFAULT_ROLE = "guest";
@@ -238,6 +240,13 @@ public class Sessions {
         HashOperations<String, String, Object> hashOperations = SimpleRedisClient.templateInstance.opsForHash();
         hashOperations.putIfAbsent(roleKey,hashKey,value);
     }
+
+    public static void setRoleWhiteList(String role){
+        String hashKey = Sessions.WHITE_LIST_PERMISSION_STRING;
+        String roleKey = String.format(Sessions.WHITE_LIST_FORMAT_STRING,role);
+        HashOperations<String, String, Object> hashOperations = SimpleRedisClient.templateInstance.opsForHash();
+        hashOperations.putIfAbsent(roleKey,hashKey,role);
+    }
     public static void setUserPermissions(String user, HashMap<String,Object> permissions){
         String roleKey = String.format(Sessions.PERMIT_USER_FORMAT_STRING,user);
         Sessions.setPermissionList(roleKey,permissions);
@@ -254,15 +263,26 @@ public class Sessions {
 
         String allKey = Sessions.FORBID_FORMAT_STRING; //"forbid:permission:all";
         String hashKey = String.format(Sessions.PERMISSION_FORMAT_STRING, uri, method.toUpperCase()); //String.format("%s:%s", method, uri);
+        System.out.println("user roles==>" + roles + "uri==>" + uri + "method==>" + method + "allKey==>" + allKey);
+        if (null != roles && roles.length > 0) {
+            for (int i = 0; i < roles.length; i++) {
+                String role = roles[i];
+                String key = String.format(Sessions.PERMIT_ROLE_FORMAT_STRING, role); //String.format("permit:permission:%s",role);
+                if (SimpleRedisClient.templateInstance.opsForHash().hasKey(key, hashKey)) {
+                    //hasPermission = true;
+                    return true;
+                }
+                String whiteListKey = String.format(Sessions.WHITE_LIST_FORMAT_STRING, role);
+                String whiteListHashKey = Sessions.WHITE_LIST_PERMISSION_STRING;
+                if(SimpleRedisClient.templateInstance.opsForHash().hasKey(whiteListKey,whiteListHashKey)){
+                    return true;
+                }
+            }
+        }
+
+
         if (SimpleRedisClient.templateInstance.opsForHash().hasKey(allKey,hashKey)){
-           for (int i=0; i < roles.length; i++){
-             String role = roles[i];
-             String key = String.format(Sessions.PERMIT_ROLE_FORMAT_STRING,role); //String.format("permit:permission:%s",role);
-             if (SimpleRedisClient.templateInstance.opsForHash().hasKey(key,hashKey)){
-                 hasPermission = true;
-                 break;
-             }
-           }
+            hasPermission = false;
         }else{
             hasPermission =  true;
         }
